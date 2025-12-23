@@ -3,12 +3,15 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Button } from "./components/ui/button.jsx"
+import { AppRoutes } from './routes/Approutes.jsx'
+import { AdminRoutes } from './routes/admin.jsx'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
- <Button variant="outline">Button</Button>
+      <AppRoutes/>
+      <AdminRoutes/>
     </>
   )
 }
