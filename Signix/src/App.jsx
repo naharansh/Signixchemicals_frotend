@@ -5,6 +5,7 @@ import './App.css'
 import { Button } from "./components/ui/button.jsx"
 import { AppRoutes } from './routes/Approutes.jsx'
 import { AdminRoutes } from './routes/admin.jsx'
+import { EmployeeRoutes } from './routes/employeeroutes.jsx'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -12,6 +13,7 @@ function App() {
     <>
       <AppRoutes/>
       <AdminRoutes/>
+      <EmployeeRoutes/>
     </>
   )
 }
