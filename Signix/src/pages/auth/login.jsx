@@ -1,6 +1,16 @@
 // components
-import {Card,CardContent,CardFooter,CardHeader,CardTitle,} from "../../components/ui/card";
-import {  Carousel,CarouselContent, CarouselItem} from "../../components/ui/carousel";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "../../components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -12,6 +22,10 @@ import firstimage from "../../assets/firstimage.svg";
 import secondimage from "../../assets/secondimage.svg";
 import logo from "../../assets/icons/logo.svg";
 import "../../styles/global.css";
+import { useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+// import { data } from "react-router-dom";
 
 export const Login = () => {
   const {
@@ -19,10 +33,49 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    alert(data.email)
-  };
+  const usenav=useNavigate()
+  const onSubmit = async (data) => {
+  console.log(data);
+
+  try {
+    const res = await axios.post(
+      "http://localhost:8080/api/login",
+      data,
+      {
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true, // ✅ crucial to send cookies
+  }
+    );
+
+    
+    if(res.data)
+    {
+      alert("logged in")
+      usenav('/verify_otp')
+    }
+
+  } catch (error) {
+    if (error.response) {
+      const status = error.response.status;
+
+      if (status === 404) {
+        // console.log();
+        alert(error.response.data.message)
+      } else if (status === 500) {
+        // console.log("Server error");
+        alert(error.response.data.message)
+      } else if (status === 505) {
+        // console.log("HTTP Version Not Supported")
+        alert(error.response.data.message)
+      } else {
+        alert("Error:", error.response.data);
+      }
+    } else {
+      alert("Network Error:", error.message);
+    }
+  }
+};
+
   return (
     <>
       <div className="bg-gray-100 py-5 justify-center flex items-center  min-h-screen">
@@ -57,7 +110,7 @@ export const Login = () => {
                     )}
                   </div>
                   {/* Strong#9Pass */}
-            {/* At least 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char */}
+                  {/* At least 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char */}
                   <div className="grid gap-2">
                     <div className="flex items-center">
                       <Label htmlFor="email">Password</Label>
