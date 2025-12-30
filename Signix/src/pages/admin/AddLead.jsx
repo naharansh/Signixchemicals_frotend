@@ -12,13 +12,12 @@ import {
   CardTitle,
 } from "../../components/ui/card";
 import { Progress } from "../../components/ui/progress";
-import icon from "../../assets/icons/email-svgrepo-com (2).svg";
+
 export const Sections = () => {
   return (
     <>
       <Sidebar>
-   
-        <div className="w-full px-5">
+           <div className="w-full px-5">
           <div className="grid grid-cols-5 gap-6 min-w-[1500px]">
            
             <div className="bg-gray-50 rounded-xl border  p-4">
