@@ -18,7 +18,7 @@ import {
 export const Sidebar = ({ children }) => {
     const location = useLocation();
     const pathnames = location.pathname.split("/").filter(Boolean);
-    console.log(pathnames)
+    
   return (
     <>
       <SidebarProvider>
