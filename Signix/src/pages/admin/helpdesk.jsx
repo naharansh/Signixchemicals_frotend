@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../components/ui/card";
-import icon from "../../assets/icons/email-svgrepo-com (2).svg";
+import icon from "../../assets/icons/email.svg";
 import { Separator } from "../../components/ui/separator";
 export const HelpDesk = () => {
   return (

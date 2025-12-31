@@ -43,9 +43,11 @@ export default function MasterCategoryPage() {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [subCategories, setSubCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState({ role_name: "",
-    description: ""});
-    const [editpopever,seteditpopover]=useState(false)
+  const [activeCategory, setActiveCategory] = useState({
+    role_name: "",
+    description: "",
+  });
+  const [editpopever, seteditpopover] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [edit, setedit] = useState(false);
   const [departmentData, setDepartmentData] = useState({
@@ -58,15 +60,26 @@ export default function MasterCategoryPage() {
     description: "",
     parentCategory: "",
   });
-  const [editpopover,editpopovers]=useState(false)
+  const [editpopover, editpopovers] = useState(false);
 
   /* -------------------- API CALLS -------------------- */
   const fetchDepartments = async () => {
-    const res = await axios.get(
+  try {
+      const res = await axios.get(
       "http://localhost:8080/department/getdepartments"
     );
-
-    setDepartments(res.data.result);
+      if(res.data.result)
+    {
+       setDepartments(res.data.result);
+    }
+    else{
+      alert("some error is occured")
+    }
+  } catch (error) {
+    alert("some error is occurd")
+  }
+  
+  
   };
 
   /* -------------------- HANDLERS -------------------- */
@@ -99,25 +112,28 @@ export default function MasterCategoryPage() {
     setAddDialogOpen(false);
     setRoleData({ role_name: "", description: "", parentCategory: "" });
   };
-  const handleChanges=(e)=>{
-    const {name,value}=e.target
-     setDepartmentData((prev)=>({...prev,[name]:value}))
-  }
-  const handleSubmit=async(e)=>{
-    e.preventDefault()
-    console.log(departmentData)
-    try{
-    const res=await  axios.patch(`http://localhost:8080/department/updateDepartment/${departmentData._id}`,departmentData)
-    console.log(res)
-    setedit(false)
-    fetchDepartments()
+  const handleChanges = (e) => {
+    const { name, value } = e.target;
+    setDepartmentData((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(departmentData);
+    try {
+      console.log;
+      const res = await axios.patch(
+        `http://localhost:8080/department/updateDepartment/${departmentData._id}`,
+        departmentData
+      );
+
+      console.log(res);
+      setedit(false);
+      fetchDepartments();
+    } catch (err) {
+      console.log(err);
     }
-  catch(err){
-      console.log(err)
-  }
-  }
+  };
   const handleEditClick = async (id) => {
-   
     const res = await axios.get(
       `http://localhost:8080/department/getDepartment/${id._id}`
     );
@@ -127,7 +143,6 @@ export default function MasterCategoryPage() {
     // setEditDialogOpen(true);
   };
   const handleView = async (data) => {
-   
     // setActiveCategory(data);
 
     const res = await axios.get(
@@ -137,36 +152,37 @@ export default function MasterCategoryPage() {
     setSubCategories(res.data.role);
     setEditDialogOpen(true);
   };
-  const getSubcategories=async (data) => {
-      try{
-        editpopovers(true)
-        console.log("Dfs")
-        const res=await axios.get(`http://localhost:8080/roleapi/allroles/${data}`)
-        console.log(res)
-        setActiveCategory(res.data.result)
-      }catch{
-        console.log("error")
-      }
-    
-  }
-  const handleSucategoriesss=async(e)=>{
-    const{name,value}=e.target
-    setActiveCategory((prev)=>({...prev,[name]:value}))
-  }
-  const HandleSubcategories=async (e) => {
-    e.preventDefault()
-   
-    try
-    {
-      const res=await axios.patch(`http://localhost:8080/roleapi/roles/${activeCategory._id}`,activeCategory)
-      console.log(res)
+  const getSubcategories = async (data) => {
+    try {
+      editpopovers(true);
+      console.log("Dfs");
+      const res = await axios.get(
+        `http://localhost:8080/roleapi/allroles/${data}`
+      );
+      console.log(res);
+      setActiveCategory(res.data.result);
+    } catch {
+      console.log("error");
     }
-    catch(err){
-      console.log(err)
+  };
+  const handleSucategoriesss = async (e) => {
+    const { name, value } = e.target;
+    setActiveCategory((prev) => ({ ...prev, [name]: value }));
+  };
+  const HandleSubcategories = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.patch(
+        `http://localhost:8080/roleapi/roles/${activeCategory._id}`,
+        activeCategory
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
     }
-    
-  }
-  /* -------------------- EFFECTS -------------------- */
+  };
+
   useEffect(() => {
     fetchDepartments();
   }, []);
@@ -181,58 +197,57 @@ export default function MasterCategoryPage() {
     }
   }, [departments]);
 
-  /* -------------------- TABLE -------------------- */
-const statusColors = {
-  Active: "bg-green-100 text-green-700",
-  Inactive: "bg-red-100 text-red-700",
-  Pending: "bg-yellow-100 text-yellow-700",
-  Suspended: "bg-gray-100 text-gray-700",
-};
+  const statusColors = {
+    Active: "bg-green-100 text-green-700",
+    Inactive: "bg-red-100 text-red-700",
+    Pending: "bg-yellow-100 text-yellow-700",
+    Suspended: "bg-gray-100 text-gray-700",
+  };
 
-const columns = useMemo(
-  () => [
-    { accessorKey: "department_name", header: "Name" },
-    { accessorKey: "description", header: "Description" },
-    {
-      accessorKey: "status",
-      header: "Status",
-      cell: ({ getValue }) => {
-        const value = getValue();
-        return (
-          <span
-            className={`px-3 py-1 rounded-full text-sm ${
-              statusColors[value] || "bg-gray-100 text-gray-700"
-            }`}
-          >
-            {value}
-          </span>
-        );
+  const columns = useMemo(
+    () => [
+      { accessorKey: "department_name", header: "Name" },
+      { accessorKey: "description", header: "Description" },
+      {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ getValue }) => {
+          const value = getValue();
+          return (
+            <span
+              className={`px-3 py-1 rounded-full text-sm ${
+                statusColors[value] || "bg-gray-100 text-gray-700"
+              }`}
+            >
+              {value}
+            </span>
+          );
+        },
       },
-    },
-    {
-      header: "Actions",
-      cell: ({ row }) => (
-        <div className="space-x-2">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => handleView(row.original)}
-          >
-            View
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => handleEditClick(row.original)}
-          >
-            Edit
-          </Button>
-        </div>
-      ),
-    },
-  ],
-  []
-);
+      {
+        header: "Actions",
+        cell: ({ row }) => (
+          <div className="space-x-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => handleView(row.original)}
+            >
+              View
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => handleEditClick(row.original)}
+            >
+              Edit
+            </Button>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
   const table = useReactTable({
     data: departments,
     columns,
@@ -242,7 +257,6 @@ const columns = useMemo(
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  /* -------------------- UI -------------------- */
   return (
     <Sidebar>
       <div className="p-6 space-y-6">
@@ -297,7 +311,6 @@ const columns = useMemo(
                     )}
                     <div className="border-t my-2" />
 
-                  
                     <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
                       <PopoverTrigger asChild>
                         <Button variant="outline" className="w-full">
@@ -405,8 +418,8 @@ const columns = useMemo(
                     <p className="text-sm text-gray-500">{item.description}</p>
                     <Popover open={editpopever} onOpenChange={seteditpopover}>
                       <PopoverTrigger asChild>
-                        <Button onClick={()=>getSubcategories(item._id)}>
-                         Edit
+                        <Button onClick={() => getSubcategories(item._id)}>
+                          Edit
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-80">
@@ -419,7 +432,6 @@ const columns = useMemo(
                             name="department_name"
                             onChange={handleDepartmentChange}
                             required
-                        
                           />
                           <Label>Description</Label>
                           <Input
@@ -445,95 +457,79 @@ const columns = useMemo(
           </DialogFooter>
         </DialogContent>
       </Dialog>
-       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-      <DialogContent className="max-w-lg">
-        <DialogHeader>
-          <DialogTitle>Sub-Categories</DialogTitle>
-          <DialogDescription>
-            List of all sub-categories
-          </DialogDescription>
-        </DialogHeader>
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Sub-Categories</DialogTitle>
+            <DialogDescription>List of all sub-categories</DialogDescription>
+          </DialogHeader>
 
-        {subCategories.length > 0 ? (
-          <div className="space-y-2">
-            {subCategories.map((item) => (
-              <div
-                key={item._id}
-                className="border rounded-md p-3 flex justify-between items-center"
-              >
-                <div className="flex justify-between w-full items-center gap-2">
-                  <p className="font-medium">{item.role_name}</p>
-                  <p className="text-sm text-gray-500">
-                    {item.description}
-                  </p>
+          {subCategories.length > 0 ? (
+            <div className="space-y-2">
+              {subCategories.map((item) => (
+                <div
+                  key={item._id}
+                  className="border rounded-md p-3 flex justify-between items-center"
+                >
+                  <div className="flex justify-between w-full items-center gap-2">
+                    <p className="font-medium">{item.role_name}</p>
+                    <p className="text-sm text-gray-500">{item.description}</p>
 
-                  {/* -------- POPOVER -------- */}
-                  <Popover
-                    open={openPopoverId === item._id}
-                    onOpenChange={(open) =>
-                      setOpenPopoverId(open ? item._id : null)
-                    }
-                  >
-                    <PopoverTrigger asChild>
-                      <Button
-                        type="button"
-                        onClick={() => getSubcategories(item._id)}
-                      >
-                        Edit
-                      </Button>
-                    </PopoverTrigger>
-
-                    <PopoverContent
-                      className="w-80"
-                     
+                    {/* -------- POPOVER -------- */}
+                    <Popover
+                      open={openPopoverId === item._id}
+                      onOpenChange={(open) =>
+                        setOpenPopoverId(open ? item._id : null)
+                      }
                     >
-                      <form
-                        onSubmit={HandleSubcategories}
-                        className="space-y-2"
-                      >
-                        <Label>Name</Label>
-                        <Input
-                          name="role_name"
-                          value={activeCategory.role_name }
-                          onChange={handleSucategoriesss}
-                          required
-                        />
-
-                        <Label>Description</Label>
-                        <Input
-                          name="description"
-                          value={activeCategory.description 
-}
-                        
-                          onChange={handleSucategoriesss}
-                        />
-
-                        <Button className="w-full mt-2">
-                          Save
+                      <PopoverTrigger asChild>
+                        <Button
+                          type="button"
+                          onClick={() => getSubcategories(item._id)}
+                        >
+                          Edit
                         </Button>
-                      </form>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-gray-500">
-            No sub-categories found
-          </p>
-        )}
+                      </PopoverTrigger>
 
-        <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => setEditDialogOpen(false)}
-          >
-            Close
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+                      <PopoverContent className="w-80">
+                        <form
+                          onSubmit={HandleSubcategories}
+                          className="space-y-2"
+                        >
+                          <Label>Name</Label>
+                          <Input
+                            name="role_name"
+                            value={activeCategory.role_name}
+                            onChange={handleSucategoriesss}
+                            required
+                          />
+
+                          <Label>Description</Label>
+                          <Input
+                            name="description"
+                            value={activeCategory.description}
+                            onChange={handleSucategoriesss}
+                          />
+
+                          <Button className="w-full mt-2">Save</Button>
+                        </form>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-500">No sub-categories found</p>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditDialogOpen(false)}>
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <Dialog open={edit} onOpenChange={setedit}>
         <DialogContent className="max-w-lg">
           <DialogHeader>

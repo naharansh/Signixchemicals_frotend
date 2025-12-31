@@ -9,6 +9,7 @@ import { ViewEmployees } from "../pages/admin/viewemployee";
 import MasterCategoryPage from "../pages/superadmin/department";
 import { HelpDesk } from "../pages/admin/helpdesk";
 import { Sections } from "../pages/admin/AddLead";
+import { ListEmployees } from "../pages/admin/listemployees";
 export const AdminRoutes = () => {
   return (
     <>
@@ -24,6 +25,8 @@ export const AdminRoutes = () => {
           <Route path="/admin/department" element={<MasterCategoryPage />} />
           <Route path="/admin/helpdesk" element={<HelpDesk/>}/>
           <Route path="/admin/lead" element={<Sections/>}/>
+          <Route path="/admin/employeeslist" element={<ListEmployees/>}/>
+
         </Routes>
       </BrowserRouter>
     </>
