@@ -79,7 +79,6 @@ export default function Page() {
       paymentMethod: "Credit Card",
     },
   ];
-
   return (
     <SidebarProvider>
       <AppSidebar />

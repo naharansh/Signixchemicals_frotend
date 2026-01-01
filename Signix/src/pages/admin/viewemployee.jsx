@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Sidebar } from "../../components/sidebar"
 import { Button } from "../../components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader } from "../../components/ui/card"
@@ -7,16 +7,20 @@ import { Label } from "../../components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
 import { Separator } from "../../components/ui/separator"
 import axios from "axios"
+import { Switch } from "../../components/ui/switch"
 
 export const ViewEmployees=()=>{
-
+  const [edit,setEdit]=useState(true)
     return(
         <>
             <Sidebar>
                 <Card>
                     <CardHeader>
                         <CardDescription className="text-xl text-[#464746]">
-                            <h1>Employee Profile</h1>
+                           <div className="flex justify-between items-center">
+                               <h1>Employee Profile</h1>
+                               <Switch checked={edit} onCheckedChange={() => setEdit(!edit)}/>
+                           </div>
                         </CardDescription>
                     </CardHeader>
               <Separator />                                  
@@ -28,7 +32,7 @@ export const ViewEmployees=()=>{
                       placeholder="Enter company name"
                       name="emp_code"
                       className="my-2"
-                      
+                      disabled={edit}
                     />
                    
                   </div>
@@ -39,7 +43,7 @@ export const ViewEmployees=()=>{
                       name="emp_fname"
                       type="text"
                       className="my-2 my-2"
-                      
+                      disabled={edit}
                     />
                     
                   </div>
@@ -50,7 +54,7 @@ export const ViewEmployees=()=>{
                       name="emp_lname"
                       type="text"
                       className="my-2"
-                      
+                      disabled={edit}
                     />
                    
                   </div>
@@ -61,7 +65,7 @@ export const ViewEmployees=()=>{
                       name="emp_email"
                       type="email"
                       className="my-2"
-                    
+                    disabled={edit}
                     />
                     
                   </div>
@@ -79,6 +83,7 @@ export const ViewEmployees=()=>{
                       name="emp_number"
                       type="text"
                       className="my-2 "
+                       disabled={edit}
                     
                     />
                   </div>
@@ -89,7 +94,7 @@ export const ViewEmployees=()=>{
                       name="emp_date"
                       type="date"
                       className="my-2 my-2"
-                 
+                 disabled={edit}
                     />
                 
                   </div>
@@ -101,7 +106,7 @@ export const ViewEmployees=()=>{
                       className="my-2"
                       
                     >
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full" disabled={edit}>
                         <SelectValue placeholder="Select a type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -112,13 +117,13 @@ export const ViewEmployees=()=>{
                     </Select>
                 
                   </div>
-                  <div className="flex flex-col my-2">
+                  <div className="flex flex-col my-2" >
                     <Label className="mb-2 my-2">status</Label>
                     <Select
 
                       className="my-2"
                     >
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full" disabled={edit}>
                         <SelectValue placeholder="Select a type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -138,6 +143,7 @@ export const ViewEmployees=()=>{
                       name="password"
                       type="password"
                       className="my-2"
+                      disabled={edit}
                       
                     />
 
@@ -147,7 +153,7 @@ export const ViewEmployees=()=>{
                     <Select
                         className="my-2"
                     >
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full" disabled={edit}> 
                         <SelectValue placeholder="Select the Role" />
                       </SelectTrigger>
                       <SelectContent>
@@ -163,7 +169,7 @@ export const ViewEmployees=()=>{
                     <Select className="my-2"
   
                     >
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full" disabled={edit}>
                         <SelectValue placeholder="Select a type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -179,7 +185,7 @@ export const ViewEmployees=()=>{
                     <Select
                             className="my-2"
                     >
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full" disabled={edit}>
                         <SelectValue placeholder="Select a type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -191,7 +197,7 @@ export const ViewEmployees=()=>{
                   </div>
                 </div>
             <div className="flex gap-3 justify-end mx-4 my-2">
-              <Button type="submit" className="bg-blue-500 hover:bg-blue-900">
+              <Button type="submit" className="bg-blue-500 hover:bg-blue-900" disabled={edit}>
                 Submit
               </Button>
               <Button type="button">Cancel</Button>

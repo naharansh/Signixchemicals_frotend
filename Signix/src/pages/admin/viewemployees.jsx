@@ -32,11 +32,13 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
+  View,
 } from "lucide-react";
 import { Sidebar } from "../../components/sidebar";
 import { Card } from "../../components/ui/card";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // --------------------
 // Sample Data (30+)
@@ -45,10 +47,86 @@ import { useEffect, useState } from "react";
 // --------------------
 // Columns
 // --------------------
-const columns = [
+const data = [
+    {
+      id:1,
+      name: "Alice Johnson",
+      email: "alice.johnson@example.com",
+      phone: "+1-202-555-0147",
+      department: "Human Resources",
+    },
+    {
+      id:2,
+      name: "Brian Smith",
+      email: "brian.smith@example.com",
+      phone: "+1-202-555-0193",
+      department: "Finance",
+    },
+    {
+      id:3,
+      name: "Catherine Lee",
+      email: "catherine.lee@example.com",
+      phone: "+1-202-555-0112",
+      department: "Engineering",
+    },
+    {
+      id:4,
+      name: "David Patel",
+      email: "david.patel@example.com",
+      phone: "+1-202-555-0178",
+      department: "Marketing",
+    },
+    {
+      id:5,
+      name: "Emily Davis",
+      email: "emily.davis@example.com",
+      phone: "+1-202-555-0134",
+      department: "Sales",
+    },
+    {
+      id:6,
+      name: "Frank Miller",
+      email: "frank.miller@example.com",
+      phone: "+1-202-555-0156",
+      department: "IT Support",
+    },
+    {
+      id:7,
+      name: "Grace Wilson",
+      email: "grace.wilson@example.com",
+      phone: "+1-202-555-0189",
+      department: "Legal",
+    },
+    {
+      id:8,
+      name: "Henry Brown",
+      email: "henry.brown@example.com",
+      phone: "+1-202-555-0167",
+      department: "Operations",
+    },
+    {
+      id:9,
+      name: "Isabella Martinez",
+      email: "isabella.martinez@example.com",
+      phone: "+1-202-555-0123",
+      department: "Product Management",
+    },
+    {
+      id:10,
+      name: "Jack Thompson",
+      email: "jack.thompson@example.com",
+      phone: "+1-202-555-0199",
+      department: "Research & Development",
+    },
+  ];
+
+
+export const ViewEmployee = () => {
+  const navigate=useNavigate()
+  const columns = [
   {
-    accessorKey: "employee_code",
-    header: "Employee_code",
+    accessorKey: "id",
+    header: "emp_id",
   },
   {
     accessorKey: "status",
@@ -73,29 +151,37 @@ const columns = [
     header: "Emails",
   },
   {
-    accessorFn: (row) => `${row.first_name} ${row.last_name}`,
+    // accessorFn: (row) => `${row.first_name} ${row.last_name}`,
+    accessorKey:"name",
     header: "Employee_name",
   },
   {
-    accessorKey: "date_of_joining",
-    header: () => <div className="text-right">Date_of_joining</div>,
-    cell: ({ row }) => {
-      const amount = row.getValue("date_of_joining").split('T')[0];
-      return <div className="text-right font-medium">{amount}</div>;
+    accessorKey: "department",
+    header:"Department"
+    
+  },
+   {
+    id: "actions",
+    header: "Actions",
+    cell: ({row})=>{
+      console.log(row)
+      return (
+       <Button
+        
+       className="cursor-pointer"
+      
+         onClick={()=>{navigate(`/admin/viewEmployee/${row.original
+.id}`)}}
+      ><View/>View/Edit</Button>
+      )
     },
   },
+  
 ];
-
-export const ViewEmployee = () => {
-  const [data, setdata] = useState([] );
+  // const [data, setdata] = useState([] );
   const [globalFilter, setGlobalFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  useEffect(() => {
-    const res = axios.get("http://localhost:8080/api/getusers").then((res) => {
-
-      setdata(res.data.result);
-    });
-  }, []);
+ 
   const table = useReactTable({
     data,
     columns,
@@ -118,7 +204,7 @@ export const ViewEmployee = () => {
   }, [statusFilter]);
 
   return (
-    <Sidebar>
+
       <Card className="mx-3">
         <div className="p-3 space-y-4 w-full">
           {/* Filters */}
@@ -293,6 +379,6 @@ export const ViewEmployee = () => {
           </div>
         </div>
       </Card>
-    </Sidebar>
+  
   );
 };
