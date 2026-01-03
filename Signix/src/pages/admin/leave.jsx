@@ -51,99 +51,178 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../components/ui/table";
 
 export const LeaveApply = () => {
+  const invoices = [
+    {
+      invoice: "INV001",
+      paymentStatus: "Paid",
+      totalAmount: "$250.00",
+      paymentMethod: "Credit Card",
+    },
+    {
+      invoice: "INV002",
+      paymentStatus: "Pending",
+      totalAmount: "$150.00",
+      paymentMethod: "PayPal",
+    },
+    {
+      invoice: "INV003",
+      paymentStatus: "Unpaid",
+      totalAmount: "$350.00",
+      paymentMethod: "Bank Transfer",
+    },
+    {
+      invoice: "INV004",
+      paymentStatus: "Paid",
+      totalAmount: "$450.00",
+      paymentMethod: "Credit Card",
+    },
+    {
+      invoice: "INV005",
+      paymentStatus: "Paid",
+      totalAmount: "$550.00",
+      paymentMethod: "PayPal",
+    },
+    {
+      invoice: "INV006",
+      paymentStatus: "Pending",
+      totalAmount: "$200.00",
+      paymentMethod: "Bank Transfer",
+    },
+    {
+      invoice: "INV007",
+      paymentStatus: "Unpaid",
+      totalAmount: "$300.00",
+      paymentMethod: "Credit Card",
+    },
+  ];
+
   const [open, setOpen] = useState(false);
   const [close, setClose] = useState(false);
   const [date, setDate] = useState(undefined);
   const [enddate, setendDate] = useState(undefined);
+  const calculate = () => {
+    if (!date || !enddate) {
+      return 0;
+    }
+    const startDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
+    );
+    const endDate = new Date(
+      enddate.getFullYear(),
+      enddate.getMonth(),
+      enddate.getDate()
+    );
+    const diffTime = endDate - startDate;
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
+    return diffDays + 1; // inclusive
+  };
+  const [leave, setleave] = useState({
+    leave_type: "",
+    leave_from: date ? date.toISOString() : null,
+    leave_to: enddate ? enddate.toISOString() : null,
+    numberOfdays: calculate(),
+    reason: "",
+  });
+  const handleSelectChange = (name, value) => {
+    setleave((prev = { ...prev, [name]: value }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(leave);
+  };
   const [opendialog, setDailog] = useState(false);
   return (
     <>
       <Sidebar>
-        <div className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-200">
-          <div className="flex items-center justify-between px-6 py-4">
-            <div>
-              <h1 className="text-2xl font-semibold text-gray-900">Leaves</h1>
-              <p className="text-sm text-gray-500">
-                Apply, track & manage leave requests
-              </p>
-            </div>
-            <Dialog open={opendialog} onOpenChange={setDailog}>
-              <form>
-                <DialogTrigger asChild>
-                  <Button className="flex items-center gap-2 bg-green-600 hover:bg-green-700">
-                    <span className="text-lg">
-                      <PlusIcon />
-                    </span>
-                    Apply Leave
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Apply for Leave</DialogTitle>
-                  </DialogHeader>
-                  <div className="grid gap-4">
-                    <div className="grid gap-3">
-                      <Label htmlFor="name-1">Leave Type</Label>
-                      <Select>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Leave Type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            <SelectLabel>Leave Type</SelectLabel>
-                            <SelectItem value="apple">Apple</SelectItem>
-                            <SelectItem value="banana">Banana</SelectItem>
-                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                            <SelectItem value="grapes">Grapes</SelectItem>
-                            <SelectItem value="pineapple">Pineapple</SelectItem>
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className=" gap-3 flex">
-                      <Label htmlFor="date" className="px-1 ">
-                        Leave from
-                      </Label>
-                      <Label htmlFor="date" className="px-1 ms-29 ">
-                        Leave to
-                      </Label>
-                    </div>
-                    <div className="gap-3 flex">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      {/* LEFT CARD */}
+      <div className="bg-white rounded-xl  shadow-sm">
+        <div className="flex items-center justify-between px-6 py-4 border-b">
+          <h1 className="text-xl font-semibold">Leaves</h1>
+
+          <Dialog open={opendialog} onOpenChange={setDailog}>
+            <form onSubmit={handleSubmit}>
+              <DialogTrigger asChild>
+                <Button className="flex items-center gap-2 bg-green-600 hover:bg-green-700">
+                  <PlusIcon className="h-4 w-4" />
+                  Apply Leave
+                </Button>
+              </DialogTrigger>
+
+              <DialogContent className="sm:max-w-[480px] rounded-xl">
+                <DialogHeader>
+                  <DialogTitle>Apply for Leave</DialogTitle>
+                </DialogHeader>
+
+                <div className="space-y-4">
+                  {/* Leave Type */}
+                  <div className="space-y-2">
+                    <Label>Leave Type</Label>
+                    <Select >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select leave type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectItem value="sick">Sick Leave</SelectItem>
+                          <SelectItem value="casual">Casual Leave</SelectItem>
+                          <SelectItem value="paid">Paid Leave</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Dates */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label>From</Label>
                       <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
-                            id="date"
-                            className="w-48 justify-between font-normal"
+                            className="w-full justify-between"
                           >
-                            {date ? date.toLocaleDateString() : "Select date"}
+                            {date
+                              ? date.toLocaleDateString()
+                              : "Select date"}
                             <ChevronDownIcon />
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent
-                          className="w-auto overflow-hidden p-0"
-                          align="start"
-                        >
+                        <PopoverContent className="p-0">
                           <Calendar
                             mode="single"
                             selected={date}
-                            captionLayout="dropdown"
-                            onSelect={(date) => {
-                              setDate(date);
+                            onSelect={(d) => {
+                              setDate(d);
                               setOpen(false);
                             }}
                           />
                         </PopoverContent>
                       </Popover>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>To</Label>
                       <Popover open={close} onOpenChange={setClose}>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
-                            id="date"
-                            className="w-48 justify-between font-normal"
+                            className="w-full justify-between"
                           >
                             {enddate
                               ? enddate.toLocaleDateString()
@@ -151,195 +230,127 @@ export const LeaveApply = () => {
                             <ChevronDownIcon />
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent
-                          className="w-auto overflow-hidden p-0"
-                          align="start"
-                        >
+                        <PopoverContent className="p-0">
                           <Calendar
                             mode="single"
                             selected={enddate}
-                            captionLayout="dropdown"
-                            onSelect={(enddate) => {
-                              setendDate(enddate);
+                            onSelect={(d) => {
+                              setendDate(d);
                               setClose(false);
                             }}
                           />
                         </PopoverContent>
                       </Popover>
                     </div>
-                    <div className="grid gap-3">
-                      <Label htmlFor="name-1">Number of Days</Label>
-                      <Input
-                        type="text"
-                        placeholder="number of days"
-                        className="-mx-1"
-                      />
-                    </div>
-                    <div className="grid gap-3">
-                      <Label htmlFor="name-1">Reason</Label>
-                      <Textarea
-                        placeholder="Type your Reason"
-                        className="resize-none mx-auto"
-                      />
-                    </div>
                   </div>
-                  <DialogFooter>
-                    <DialogClose asChild>
-                      <Button
-                        variant="outline"
-                        onClick={() => setDailog(false)}
-                      >
-                        Cancel
-                      </Button>
-                    </DialogClose>
-                    <Button type="submit">Save changes</Button>
-                  </DialogFooter>
-                </DialogContent>
-              </form>
-            </Dialog>
-          </div>
-        </div>
 
-        <div className="w-full max-w-7xl mx-auto px-2 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="group">
-              <Card className="h-full bg-blue-800 border-none shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                <CardContent className="p-8">
-                  <div className="flex flex-col items-center text-white">
-                    <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4 ">
-                      <svg
-                        className="w-8 h-8"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      </svg>
-                    </div>
-                    <h4 className="text-5xl font-bold">12</h4>
-                    <p className="text-blue-100 text-lg mt-2">
-                      Total Leaves Taken
-                    </p>
+                  {/* Days */}
+                  <div className="space-y-2">
+                    <Label>Number of Days</Label>
+                    <Input
+                    
+                      readOnly
+                      className="bg-gray-100"
+                    />
                   </div>
-                </CardContent>
-              </Card>
-            </div>
 
-            <div className="group">
-              <Card className="h-full bg-gradient-to-br from-amber-500 to-amber-600 border-none shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                <CardContent className="p-8">
-                  <div className="flex flex-col items-center text-white">
-                    <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4 ">
-                      <svg
-                        className="w-8 h-8"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </div>
-                    <h4 className="text-5xl font-bold">3</h4>
-                    <p className="text-amber-100 text-lg mt-2">
-                      Pending Approval
-                    </p>
+                  {/* Reason */}
+                  <div className="space-y-2">
+                    <Label>Reason</Label>
+                    <Textarea placeholder="Enter reason" />
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
 
-            <div className="group">
-              <Card className="h-full bg-green-700 border-none shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                <CardContent className="p-8">
-                  <div className="flex flex-col items-center text-white">
-                    <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4 ">
-                      <svg
-                        className="w-8 h-8"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </div>
-                    <h4 className="text-5xl font-bold">18</h4>
-                    <p className="text-emerald-100 text-lg mt-2">
-                      Available Leaves
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                <DialogFooter className="pt-4">
+                  <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+                  <Button
+                    type="submit"
+                    className="bg-green-600 hover:bg-green-700"
+                  >
+                    Apply
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </form>
+          </Dialog>
+          
+      </div>
+       <div className="p-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+          
+          {/* Block 1 */}
+          <div className="rounded-lg border bg-gray-50 p-4">
+             <h2 className="text-2xl font-bold text-gray-900 text-center">24</h2>
+            <p className="text-md text-gray-500 text-center">Total Leaves</p>
+           
           </div>
 
-          <div className="bg-white/5  rounded-xl  shadow-xl py-6">
-            <ul className="space-y-4">
-              <li>
-                <Card className="rou">
-                  <CardContent>
-                    <div className="flex items-center justify-between p-4 border-b border-gray-100 ">
-                      <div className="">
-                        <Avatar className="w-20 h-20">
-                          <AvatarImage
-                            src="https://github.com/shadcn.png"
-                            alt="@shadcn"
-                          />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                      </div>
-
-                      <div className="flex-1 ml-4 self-start">
-                        <h4 className="text-lg font-semibold ">Radha Kumari</h4>
-                        <p className="text-sm text-gray-300">
-                          Sales Department
-                        </p>
-
-                        <div className="flex items-center gap-3 mt-2">
-                          <span className="flex items-center gap-1 text-xs text-gray-400">
-                            <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
-                            Sick Leave
-                          </span>
-                          <span className="text-xs text-gray-500">•</span>
-                          <span className="text-xs text-gray-400">May 8</span>
-                          <span className="text-xs text-gray-500">•</span>
-                          <span className="text-xs text-gray-400">
-                            9 hours ago
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col items-end justify-between h-full">
-                        <Badge
-                          variant="secondary"
-                          className="px-3 py-1 bg-yellow-200 text-yellow-800 font-medium "
-                        >
-                          Pending
-                        </Badge>
-
-                        <ChevronRightIcon className="text-gray-300 w-5 h-5 mt-4" />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </li>
-            </ul>
+          {/* Block 2 */}
+          <div className="rounded-lg border bg-blue-50 p-4">
+          
+            <h2 className="text-2xl font-bold text-blue-600 text-center">10</h2>
+              <p className="text-md text-gray-500 text-center">Used</p>
           </div>
-        </div>
+
+          {/* Block 3 */}
+          <div className="rounded-lg border bg-green-50 p-4">
+           
+            <h2 className="text-2xl font-bold text-green-600 text-center">14</h2>
+             <p className="text-md text-gray-500 text-center">Available</p>
+          </div>
+
+          {/* Block 4 */}
+          <div className="rounded-lg border bg-yellow-50 p-4">
+            
+            <h2 className="text-2xl font-bold text-yellow-600 text-center">2</h2>
+            <p className="text-md  text-gray-500 text-center">Pending</p>
+          </div>
+
+            </div>
+          </div>
+      </div>
+
+      {/* RIGHT TABLE */}
+      <div className="col-span-2 bg-white rounded-xl   shadow-sm overflow-x-auto my-3">
+        <Table className="w-full">
+          <TableCaption>Leave history</TableCaption>
+
+          <TableHeader className="bg-gray-50">
+            <TableRow>
+              <TableHead>Invoice</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Method</TableHead>
+              <TableHead className="text-right">Days</TableHead>
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>
+            {invoices.map((invoice) => (
+              <TableRow
+                key={invoice.invoice}
+                className="odd:bg-muted/50 hover:bg-muted transition"
+              >
+                <TableCell>{invoice.invoice}</TableCell>
+                <TableCell>{invoice.paymentStatus}</TableCell>
+                <TableCell>{invoice.paymentMethod}</TableCell>
+                <TableCell className="text-right">
+                  {invoice.totalAmount}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={3}>Total</TableCell>
+              <TableCell className="text-right">5</TableCell>
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </div>
+    </div>
       </Sidebar>
     </>
   );

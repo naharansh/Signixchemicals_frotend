@@ -11,6 +11,8 @@ import { HelpDesk } from "../pages/admin/helpdesk";
 import { Sections } from "../pages/admin/AddLead";
 import { ListEmployees } from "../pages/admin/listemployees";
 import { LeaveApply } from "../pages/admin/leave";
+import { Toggles } from "../pages/admin/attendencs";
+import FrappeGantt from "../pages/admin/testing";
 export const AdminRoutes = () => {
   return (
     <>
@@ -28,6 +30,11 @@ export const AdminRoutes = () => {
           <Route path="/admin/lead" element={<Sections/>}/>
           <Route path="/admin/employeeslist" element={<ListEmployees/>}/>
           <Route path="/admin/leaveapply" element={<LeaveApply/>}/>
+          <Route path="/admin/attendence" element={<Toggles/>}/>
+          <Route path="/admin/chart" element={< FrappeGantt/>}/>
+          
+
+
 
         </Routes>
       </BrowserRouter>
