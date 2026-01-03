@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Gantt from "frappe-gantt";
 import {
   Select,
@@ -8,86 +8,75 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 
-
-   const attendanceTestData = [
-  // ===== SAME DAY (DAY FILTER) =====
+/* ---------------- TEST DATA ---------------- */
+const attendanceTestData = [
   {
-    id: "emp-1-day",
+    id: "emp-1",
     name: "Nilesh Sharma",
-    start: "2024-09-18",
-    end: "2024-09-18",
+    start: "2024-09-18T09:00:00",
+    end: "2024-09-18T18:00:00",
   },
-
-  // ===== SAME WEEK (WEEK FILTER) =====
   {
-    id: "emp-2-week",
+    id: "emp-2",
     name: "Kritik Maheshwari",
-    start: "2024-09-16", // Monday
-    end: "2024-09-16",
+    start: "2024-09-16T10:00:00",
+    end: "2024-09-16T17:30:00",
   },
   {
-    id: "emp-3-week",
+    id: "emp-3",
     name: "Rohit Verma",
-    start: "2024-09-20", // Friday
-    end: "2024-09-20",
+    start: "2024-09-20T09:30:00",
+    end: "2024-09-20T18:15:00",
   },
-
-  // ===== SAME MONTH (MONTH FILTER) =====
   {
-    id: "emp-4-month",
+    id: "emp-4",
     name: "Aman Gupta",
-    start: "2024-09-05",
-    end: "2024-09-05",
+    start: "2024-09-05T09:00:00",
+    end: "2024-09-05T18:00:00",
   },
   {
-    id: "emp-5-month",
+    id: "emp-5",
     name: "Pooja Singh",
-    start: "2024-09-28",
-    end: "2024-09-28",
+    start: "2024-09-28T10:00:00",
+    end: "2024-09-28T17:00:00",
   },
-
-  // ===== DIFFERENT MONTH (SHOULD NOT SHOW IN SEPT) =====
   {
-    id: "emp-6-oct",
+    id: "emp-6",
     name: "Neha Jain",
-    start: "2024-10-03",
-    end: "2024-10-03",
-  },
-
-  // ===== YEAR FILTER =====
-  {
-    id: "emp-7-year",
-    name: "Arjun Patel",
-    start: "2024-01-15",
-    end: "2024-01-15",
-  },
-
-  // ===== DIFFERENT YEAR (EDGE CASE) =====
-  {
-    id: "emp-8-2023",
-    name: "Old Record",
-    start: "2023-12-31",
-    end: "2023-12-31",
-  },
-
-  // ===== WEEK BOUNDARY TEST =====
-  {
-    id: "emp-9-sunday",
-    name: "Sunday Task",
-    start: "2024-09-22", // Sunday
-    end: "2024-09-22",
-  },
-
-  // ===== MONTH END TEST =====
-  {
-    id: "emp-10-month-end",
-    name: "Month End Task",
-    start: "2024-09-30",
-    end: "2024-09-30",
+    start: "2024-10-03T09:00:00",
+    end: "2024-10-03T18:00:00",
   },
 ];
 
+/* ---------------- HELPERS ---------------- */
+const formatTime = (d) =>
+  new Date(d).toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
 
+const formatDate = (d) =>
+  new Date(d).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+  });
+
+const formatMonth = (d) =>
+  new Date(d).toLocaleDateString("en-IN", {
+    month: "short",
+    year: "numeric",
+  });
+
+const dayDiff = (start, end) =>
+  Math.max(
+    1,
+    Math.ceil(
+      (new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24) + 1
+    )
+  );
+
+/* ---------------- COMPONENT ---------------- */
 export default function AttendanceChart() {
   const ganttRef = useRef(null);
 
@@ -96,6 +85,7 @@ export default function AttendanceChart() {
     new Date(attendanceTestData[0].start)
   );
 
+  /* ---------------- VIEW MODE MAP ---------------- */
   const viewModeMap = {
     day: "Hour",
     week: "Day",
@@ -103,7 +93,7 @@ export default function AttendanceChart() {
     year: "Month",
   };
 
-  
+  /* ---------------- FILTER LOGIC ---------------- */
   const filterTasks = (tasks, view, date) => {
     const d = new Date(date);
 
@@ -141,9 +131,39 @@ export default function AttendanceChart() {
     });
   };
 
-  const filteredTasks = filterTasks(attendanceTestData, view, selectedDate);
+  /* ---------------- MONTH AGGREGATION ---------------- */
+  const aggregateMonthTasks = (tasks) => {
+    const map = {};
 
- 
+    tasks.forEach((t) => {
+      if (!map[t.name]) {
+        map[t.name] = {
+          id: t.name,
+          name: t.name,
+          start: t.start,
+          end: t.end,
+          progress: 100,
+        };
+      } else {
+        if (new Date(t.start) < new Date(map[t.name].start)) {
+          map[t.name].start = t.start;
+        }
+        if (new Date(t.end) > new Date(map[t.name].end)) {
+          map[t.name].end = t.end;
+        }
+      }
+    });
+
+    return Object.values(map);
+  };
+
+  /* ---------------- FINAL DATA ---------------- */
+  const filteredTasks = useMemo(() => {
+    const base = filterTasks(attendanceTestData, view, selectedDate);
+    return view === "month" ? aggregateMonthTasks(base) : base;
+  }, [view, selectedDate]);
+
+  /* ---------------- INIT GANTT ---------------- */
   useEffect(() => {
     if (!ganttRef.current || filteredTasks.length === 0) return;
 
@@ -151,63 +171,77 @@ export default function AttendanceChart() {
 
     new Gantt(ganttRef.current, filteredTasks, {
       view_mode: viewModeMap[view],
-      date_format:
-        view === "day"
-          ? "HH:mm"
-          : view === "week"
-          ? "DD MMM ddd"
-          : view === "month"
-          ? "DD MMM"
-          : "MMM YYYY",
-      bar_height: 28,
+      bar_height: 30,
       padding: 20,
-    });
-  }, [view, selectedDate, filteredTasks]);
 
- 
+      custom_popup_html: (task) => {
+        let label = "";
+
+        if (view === "day") {
+          label = `${formatTime(task.start)} – ${formatTime(task.end)}`;
+        }
+
+        if (view === "week") {
+          label = formatDate(task.start);
+        }
+
+        if (view === "month") {
+          label = `${formatMonth(task.start)} (${dayDiff(
+            task.start,
+            task.end
+          )} days)`;
+        }
+
+        if (view === "year") {
+          label = new Date(task.start).getFullYear();
+        }
+
+        return `
+          <div style="padding:8px;font-size:13px">
+            <div style="font-weight:600">${task.name}</div>
+            <div style="color:#555;margin-top:4px">${label}</div>
+          </div>
+        `;
+      },
+    });
+  }, [view, filteredTasks]);
+
+  /* ---------------- UI ---------------- */
   return (
     <div className="bg-gray-50 min-h-screen p-6 space-y-6 max-w-7xl mx-auto">
-  <h2 className="text-xl font-semibold text-gray-800">
-    Employee Attendance
-  </h2>
+      <h2 className="text-xl font-semibold">Employee Attendance</h2>
 
- 
-  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white rounded-lg shadow-sm p-4">
-    
-    
-    <Select value={view} onValueChange={setView}>
-      <SelectTrigger className="w-full sm:w-36">
-        <SelectValue placeholder="View" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="day">Day</SelectItem>
-        <SelectItem value="week">Week</SelectItem>
-        <SelectItem value="month">Month</SelectItem>
-        <SelectItem value="year">Year</SelectItem>
-      </SelectContent>
-    </Select>
+      <div className="flex flex-col sm:flex-row gap-4 bg-white p-4 rounded-lg shadow">
+        <Select value={view} onValueChange={setView}>
+          <SelectTrigger className="w-40">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="day">Day</SelectItem>
+            <SelectItem value="week">Week</SelectItem>
+            <SelectItem value="month">Month</SelectItem>
+            <SelectItem value="year">Year</SelectItem>
+          </SelectContent>
+        </Select>
 
-    {/* Date Picker */}
-    <input
-      type="date"
-      value={selectedDate.toISOString().split("T")[0]}
-      onChange={(e) => setSelectedDate(new Date(e.target.value))}
-      className="h-10 w-full sm:w-auto rounded-md border border-gray-300 px-3 text-sm
-                 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-  </div>
+        <input
+          type="date"
+          value={selectedDate.toISOString().split("T")[0]}
+          onChange={(e) => setSelectedDate(new Date(e.target.value))}
+          className="border rounded-md px-3 h-10"
+        />
+      </div>
 
-  {filteredTasks.length === 0 ? (
-    <div className="h-[400px] flex items-center justify-center text-gray-500 bg-white rounded-lg shadow-sm">
-      No attendance data for selected period
+      {filteredTasks.length === 0 ? (
+        <div className="h-[400px] flex items-center justify-center bg-white rounded-lg shadow text-gray-500">
+          No attendance data
+        </div>
+      ) : (
+        <div
+          ref={ganttRef}
+          className="h-[400px] bg-white rounded-lg shadow"
+        />
+      )}
     </div>
-  ) : (
-    <div
-      ref={ganttRef}
-      className="h-[400px] border rounded-lg bg-white shadow-sm mt-[70px]"
-    />
-  )}
-</div>
-
   );
 }

@@ -13,6 +13,8 @@ import { ListEmployees } from "../pages/admin/listemployees";
 import { LeaveApply } from "../pages/admin/leave";
 import { Toggles } from "../pages/admin/attendencs";
 import FrappeGantt from "../pages/admin/testing";
+import { Uploads } from "../pages/admin/document";
+import { Subscription } from "../pages/superadmin/subscrition";
 export const AdminRoutes = () => {
   return (
     <>
@@ -32,6 +34,8 @@ export const AdminRoutes = () => {
           <Route path="/admin/leaveapply" element={<LeaveApply/>}/>
           <Route path="/admin/attendence" element={<Toggles/>}/>
           <Route path="/admin/chart" element={< FrappeGantt/>}/>
+          <Route path="/admin/upload" element={<Uploads/>}/>
+           <Route path="/admin/subscription" element={<Subscription/>}/>
           
 
 
