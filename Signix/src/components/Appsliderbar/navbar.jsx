@@ -5,7 +5,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarMenuAction,
-  Sidebar,
+ 
   SidebarGroupContent,
 } from "../../components/ui/sidebar";
 import {
@@ -44,8 +44,8 @@ export const Navbars = ({ items }) => {
       <SidebarGroupLabel>Documents</SidebarGroupLabel>
 
       <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
+        {items.map((item,key) => (
+          <SidebarMenuItem key={key}  >
             <SidebarMenuButton asChild>
               <a href={item.url} className="flex items-center gap-2">
                 <item.icon className="size-4" />

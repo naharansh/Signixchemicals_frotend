@@ -94,12 +94,12 @@ useEffect(()=>{
     if (!validate()) {
       console.log(errors);
     }
-    console.log(emp);
+   
     try {
       const res = await axios.post("http://localhost:8080/api/user", emp, {
         withCredentials: true,
       });
-      console.log(res.data);
+      
       if (res) {
         alert("Employee is add Successfully");
       }

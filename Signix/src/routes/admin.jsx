@@ -20,7 +20,7 @@ export const AdminRoutes = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path=" " element={<Page />} />
+          <Route path="/admin/dashboard" element={<Page />} />
           <Route path="/admin/addCompany" element={<AddCompany />} />
           <Route path="/admin/ViewCompany/:id" element={<ViewCompany />} />
           <Route path="/admin/listcompanies" element={<CompanyList />} />
@@ -28,18 +28,16 @@ export const AdminRoutes = () => {
           <Route path="/admin/EmployeeList" element={<ViewEmployee />} />
           <Route path="/admin/viewEmployee/:id" element={<ViewEmployees />} />
           <Route path="/admin/department" element={<MasterCategoryPage />} />
-          <Route path="/admin/helpdesk" element={<HelpDesk/>}/>
-          <Route path="/admin/lead" element={<Sections/>}/>
-          <Route path="/admin/employeeslist" element={<ListEmployees/>}/>
-          <Route path="/admin/leaveapply" element={<LeaveApply/>}/>
-          <Route path="/admin/attendence" element={<Toggles/>}/>
-          <Route path="/admin/chart" element={< FrappeGantt/>}/>
-          <Route path="/admin/upload" element={<Uploads/>}/>
-           <Route path="/admin/subscription" element={<Subscription/>}/>
-          
-
-
-
+          <Route path="/admin/helpdesk" element={<HelpDesk />} />
+          <Route path="/admin/lead" element={<Sections />} />
+          <Route path="/admin/employeeslist" element={<ListEmployees />} />
+          <Route path="/admin/leaveapply" element={<LeaveApply />} />
+          <Route path="/admin/attendence" element={<Toggles />} />
+          <Route path="/admin/chart" element={<FrappeGantt />} />
+          <Route path="/admin/upload" element={<Uploads />} />
+          <Route path="/admin/subscription" element={<Subscription />} />
+          <Route path='*' element={<h1>Page not found</h1>}/>
+'
         </Routes>
       </BrowserRouter>
     </>

@@ -72,7 +72,7 @@ const CompanyList = () => {
   });
 useEffect(()=>{
   axios.get('http://localhost:8080/company/getAllEmployees').then((res)=>{
-      console.log(res.data)
+     
       if(res)
       {
         setData(res.data.employees)

@@ -22,10 +22,9 @@ import firstimage from "../../assets/firstimage.svg";
 import secondimage from "../../assets/secondimage.svg";
 import logo from "../../assets/icons/logo.svg";
 import "../../styles/global.css";
-import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { data } from "react-router-dom";
+
 
 export const Login = () => {
   const {
@@ -35,7 +34,7 @@ export const Login = () => {
   } = useForm();
   const usenav=useNavigate()
   const onSubmit = async (data) => {
-  console.log(data);
+ 
 
   try {
     const res = await axios.post(
@@ -59,13 +58,13 @@ export const Login = () => {
       const status = error.response.status;
 
       if (status === 404) {
-        // console.log();
+        
         alert(error.response.data.message)
       } else if (status === 500) {
-        // console.log("Server error");
+        
         alert(error.response.data.message)
       } else if (status === 505) {
-        // console.log("HTTP Version Not Supported")
+        
         alert(error.response.data.message)
       } else {
         alert("Error:", error.response.data);

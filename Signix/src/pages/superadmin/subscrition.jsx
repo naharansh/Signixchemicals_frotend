@@ -1,6 +1,5 @@
-import { EyeIcon, View } from "lucide-react";
+import { EyeIcon } from "lucide-react";
 import { Sidebar } from "../../components/sidebar";
-import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import {
   Table,
@@ -9,9 +8,15 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
-import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "../../components/ui/dialog";
+import { Separator } from "../../components/ui/separator";
 
 export const Subscription = () => {
   const invoices = [
@@ -59,7 +64,6 @@ export const Subscription = () => {
   return (
     <>
       <Sidebar>
-    
         <Card className="rounded-none border-none my-3">
           <CardContent className="px-4">
             <Table className="w-full text-sm">
@@ -110,67 +114,51 @@ export const Subscription = () => {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Popover>
-                           <PopoverTrigger asChild>
-                      <button
-                       
-                        className="inline-flex items-center justify-center 
-               h-8 w-8 rounded-md 
-               text-gray-600 hover:text-blue-600
-               hover:bg-blue-50
-               transition"
-                        title="View"
-                      >
-                        <EyeIcon className="h-4 w-4" />
-                      </button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-80">
-        <div className="grid gap-4">
-          <div className="space-y-2">
-            <h4 className="leading-none font-medium">Customer</h4>
-           
-          </div>
-          <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="width">Customer</Label>
-              <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-                value={item.customer}
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="maxWidth">Salespersoon</Label>
-              <Input
-                id="maxWidth"
-                defaultValue="300px"
-                className="col-span-2 h-8"
-                value={item.salesperson}
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4 ">
-              <Label htmlFor="height" className="w-1/2">Recurring Plan</Label>
-              <Input
-                id="height"
-              
-                className="col-span-2 h-8"
-                value={item.recurringPlan}
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="maxHeight">Status</Label>
-              <Input
-                id="maxHeight"
-                defaultValue="none"
-                className="col-span-2 h-8"
-                 value={item.subscriptionStatus}
-              />
-            </div>
-          </div>
-        </div>
-      </PopoverContent>
-                      </Popover>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <button
+                            className="h-8 w-8 rounded-md 
+        text-gray-600 hover:text-blue-600
+        hover:bg-blue-50 transition"
+                            title="View"
+                          >
+                            <EyeIcon className="h-4 w-4" />
+                          </button>
+                        </DialogTrigger>
+
+                        <DialogContent  >
+                          <DialogTitle className="max-w-lg " > 
+                          {/* Header */}
+                          <div className="flex flex-col gap-1 text-center">
+                            <h2 className="text-lg font-semibold">
+                              Customer Details
+                            </h2>
+                            <p className="text-sm text-muted-foreground">
+                              View subscription information
+                            </p>
+                          </div>
+
+                          <Separator className="my-1" />
+
+                          {/* Content */}
+                          <div className="grid gap-4">
+                            <InfoField label="Customer" value={item.customer} />
+                            <InfoField
+                              label="Salesperson"
+                              value={item.salesperson}
+                            />
+                            <InfoField
+                              label="Recurring Plan"
+                              value={item.recurringPlan}
+                            />
+                            <InfoField
+                              label="Status"
+                              value={item.subscriptionStatus}
+                            />
+                          </div>
+                          </DialogTitle>
+                        </DialogContent>
+                      </Dialog>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -182,3 +170,13 @@ export const Subscription = () => {
     </>
   );
 };
+const InfoField = ({ label, value }) => (
+  <div className="grid grid-cols-3 items-center gap-4">
+    <Label className="text-sm text-muted-foreground">{label}</Label>
+    <Input
+      value={value}
+      readOnly
+      className="col-span-2 h-9 bg-muted cursor-default"
+    />
+  </div>
+);

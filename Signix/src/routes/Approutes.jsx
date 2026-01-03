@@ -10,6 +10,7 @@ export const AppRoutes = () => {
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify_otp" element={<GenerateOTP />} />
+          
         </Routes>
       </BrowserRouter>
     </>

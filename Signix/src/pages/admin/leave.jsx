@@ -143,7 +143,7 @@ export const LeaveApply = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(leave);
+    
   };
   const [opendialog, setDailog] = useState(false);
   return (

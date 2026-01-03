@@ -22,7 +22,7 @@ export const GenerateOTP = () => {
 
   const OTPSubmit =async (e) => {
     e.preventDefault();
-    console.log("OTP entered:", {otp}); // full 6-digit code
+  
     try {
    const res= await axios.post(
   "http://localhost:8080/api/verifyOTP",
@@ -36,7 +36,7 @@ if(res)
 {
     alert("Otp is verified")
 }
-console.log("DSfsd")
+
 
     } catch (error) {
         console.log(error.message)

@@ -118,15 +118,15 @@ export default function MasterCategoryPage() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(departmentData);
+    
     try {
-      console.log;
+     
       const res = await axios.patch(
         `http://localhost:8080/department/updateDepartment/${departmentData._id}`,
         departmentData
       );
 
-      console.log(res);
+  
       setedit(false);
       fetchDepartments();
     } catch (err) {
@@ -155,11 +155,11 @@ export default function MasterCategoryPage() {
   const getSubcategories = async (data) => {
     try {
       editpopovers(true);
-      console.log("Dfs");
+     
       const res = await axios.get(
         `http://localhost:8080/roleapi/allroles/${data}`
       );
-      console.log(res);
+     
       setActiveCategory(res.data.result);
     } catch {
       console.log("error");
@@ -177,7 +177,7 @@ export default function MasterCategoryPage() {
         `http://localhost:8080/roleapi/roles/${activeCategory._id}`,
         activeCategory
       );
-      console.log(res);
+     
     } catch (err) {
       console.log(err);
     }

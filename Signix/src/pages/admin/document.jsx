@@ -2,19 +2,28 @@ import { Sidebar } from "../../components/sidebar";
 import { Card, CardContent } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
 import folder from "../../assets/icons/folder.svg";
-import { useMemo, useState } from "react";
+import {  useState } from "react";
 import { Button } from "../../components/ui/button";
 import { PlusCircleIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
+
   DropdownMenuItem,
-  DropdownMenuLabel,
+
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../../components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../../components/ui/dialog";
 import { Field, FieldGroup, FieldLabel } from "../../components/ui/field";
+
 
 export const Uploads = () => {
   const testdata = [
@@ -99,7 +108,21 @@ export const Uploads = () => {
   ];
 
   const [showNewDialog, setShowNewDialog] = useState(false);
+  const [file, setFile] = useState(null);
+const handleUpload=(e)=>{
+        setFile(e.target.files[0])
+    
+}
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!file) return alert("Select a file first");
+
+     const formData = new FormData();
+  formData.append("file", file);
+  setShowNewDialog(false)
   
+}
   return (
     <Sidebar>
       <div className="bg-white mx-5 mt-4">
@@ -111,51 +134,61 @@ export const Uploads = () => {
             </p>
           </div>
 
-         <div className="relative w-full sm:w-72">
-  <DropdownMenu modal={false}>
-    <DropdownMenuTrigger asChild>
-      <Button>
-        <PlusCircleIcon />
-        Add Folder
-      </Button>
-    </DropdownMenuTrigger>
+          <div className="relative w-full sm:w-72">
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <Button>
+                  <PlusCircleIcon />
+                  Add Folder
+                </Button>
+              </DropdownMenuTrigger>
 
-    <DropdownMenuContent className="w-40" align="end">
-      <DropdownMenuItem >
-        Create Folder
-      </DropdownMenuItem>
-      <DropdownMenuItem onSelect={() => setShowNewDialog(true)}>
-        Upload file
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
+              <DropdownMenuContent className="w-40" align="end">
+                <DropdownMenuItem>Create Folder</DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => setShowNewDialog(true)}>
+                  Upload file
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-  <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
-    <DialogContent className="sm:max-w-[425px]">
-      <DialogHeader>
-        <DialogTitle>Create New File</DialogTitle>
-        <DialogDescription>
-          Provide a name for your new file. Click create when you&apos;re done.
-        </DialogDescription>
-      </DialogHeader>
+            <Dialog open={showNewDialog} onOpenChange={setShowNewDialog}>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Create New File</DialogTitle>
+                  <DialogDescription>
+                    Provide a name for your new file. Click create when
+                    you&apos;re done.
+                  </DialogDescription>
+                </DialogHeader>
 
-      <FieldGroup className="pb-3">
-        <Field>
-          <FieldLabel htmlFor="filename">Upload File</FieldLabel>
-          <Input id="filename" name="filename" placeholder="document.txt"  type="file"/>
-        </Field>
-      </FieldGroup>
+                <FieldGroup className="pb-3">
+                  <Field >
+                    <FieldLabel htmlFor="filename">Upload File</FieldLabel>
+                    <Input
+                      id="filename"
+                      name="filename"
+                      placeholder="document.txt"
+                      type="file"
+                      onChange={handleUpload}
+                    />
+                  </Field>
+                </FieldGroup>
 
-      <DialogFooter>
-        <DialogClose asChild>
-          <Button variant="outline">Cancel</Button>
-        </DialogClose>
-        <Button type="submit">Create</Button>
-      </DialogFooter>
-    </DialogContent>
-  </Dialog>
-</div>
-
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+                  <Button
+                    type="submit"
+                 
+                    onClick={handleSubmit}
+                  >
+                    Create
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
 
         <div className="mx-5 mt-5">

@@ -7,6 +7,7 @@ export const EmployeeRoutes=()=>{
             <BrowserRouter>
                 <Routes>
                     <Route path="/employee/dashboard" element={<Employee/>}/>
+                    
                 </Routes>
             </BrowserRouter>
         </>

@@ -164,7 +164,7 @@ export const ViewEmployee = () => {
     id: "actions",
     header: "Actions",
     cell: ({row})=>{
-      console.log(row)
+   
       return (
        <Button
         
