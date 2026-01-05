@@ -208,7 +208,7 @@ export default function AttendanceChart() {
 
   /* ---------------- UI ---------------- */
   return (
-    <div className="bg-gray-50 min-h-screen p-6 space-y-6 max-w-7xl mx-auto">
+    <div className=" min-h-screen p-6 space-y-6 max-w-7xl mx-auto">
       <h2 className="text-xl font-semibold">Employee Attendance</h2>
 
       <div className="flex flex-col sm:flex-row gap-4 bg-white p-4 rounded-lg shadow">
@@ -239,7 +239,7 @@ export default function AttendanceChart() {
       ) : (
         <div
           ref={ganttRef}
-          className="h-[400px] bg-white rounded-lg shadow"
+          className="h-[400px] bg-white rounded-lg shadow "
         />
       )}
     </div>

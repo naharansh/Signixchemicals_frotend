@@ -15,6 +15,9 @@ import { Toggles } from "../pages/admin/attendencs";
 import FrappeGantt from "../pages/admin/testing";
 import { Uploads } from "../pages/admin/document";
 import { Subscription } from "../pages/superadmin/subscrition";
+import { AddLeads } from "../pages/admin/addLeads";
+import { AddBranch } from "../pages/admin/addBranch";
+import { ViewsLeads } from "../pages/admin/viewLead";
 export const AdminRoutes = () => {
   return (
     <>
@@ -36,9 +39,11 @@ export const AdminRoutes = () => {
           <Route path="/admin/chart" element={<FrappeGantt />} />
           <Route path="/admin/upload" element={<Uploads />} />
           <Route path="/admin/subscription" element={<Subscription />} />
+          <Route path="/admin/addLeads" element={<AddLeads/>}/>
+          <Route path="/admin/addBranch" element={<AddBranch/>} />
+          <Route path="/admin/viewLead/:id" element={<ViewsLeads/>}/>
           <Route path='*' element={<h1>Page not found</h1>}/>
-'
-        </Routes>
+        </Routes> 
       </BrowserRouter>
     </>
   );

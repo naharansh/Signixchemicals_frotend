@@ -164,7 +164,7 @@ export const Toggles = () => {
     <Sidebar>
   <div className="flex flex-col h-full p-6 bg-gray-50">
     
-   
+    {/* Header */}
     <div className="flex items-center justify-between mb-6">
       <h2 className="text-xl font-semibold">
         Attendance Report
@@ -181,10 +181,10 @@ export const Toggles = () => {
       </div>
     </div>
 
-
-   
+    {/* Content */}
+    <div className="flex-1 overflow-auto">
       <AttendanceChart />
-  
+    </div>
 
   </div>
 </Sidebar>
