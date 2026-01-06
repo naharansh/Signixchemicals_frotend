@@ -24,6 +24,7 @@ import { OrderList } from "../pages/admin/orderList";
 import { ProductList } from "../pages/admin/productlist";
 import { AddProducts } from "../pages/admin/addProduct";
 import { AddOrder } from "../pages/admin/addOrder";
+import { Category } from "../pages/admin/category";
 
 export const AdminRoutes = () => {
   return (
@@ -55,7 +56,7 @@ export const AdminRoutes = () => {
           <Route path="/admin/productList" element={<ProductList/>}/>
           <Route path="/admin/addProduct" element={<AddProducts/>}/>
           <Route path="/admin/addOrder" element={<AddOrder/>}/>
-          <Route path="/admin/Category" element/>
+          <Route path="/admin/Category" element={<Category/>}/>
           <Route path='*' element={<h1>Page not found</h1>}/>
         </Routes> 
       </BrowserRouter>
