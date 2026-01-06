@@ -47,7 +47,7 @@ export const AddLeads = () => {
       <Sidebar>
         <div className="w-full px-4">
           <Card className="max-w-5xl mx-auto rounded-none shadow-md border border-none  py-6">
-            {/* Header */}
+            
             <div className="px-6">
               <h1 className="text-xl font-semibold tracking-tight">Add Lead</h1>
               <p className="text-sm text-muted-foreground mt-1">
@@ -59,7 +59,7 @@ export const AddLeads = () => {
 
             <CardContent className="px-6">
               <form className="space-y-6" onSubmit={handleSubmits}>
-                {/* Form Grid */}
+            
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Lead Name */}
                   <div className="space-y-2">
@@ -172,7 +172,7 @@ export const AddLeads = () => {
                   </div>
                 </div>
 
-                {/* Actions */}
+               
                 <div className="flex justify-end gap-3 pt-4">
                   <Button className="bg-red-700 hover:bg-red-800">
                     Cancel

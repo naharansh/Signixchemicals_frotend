@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";  
 import Page from "../pages/admin/admin";
 import { AddCompany } from "../pages/superadmin/addcompany";
 import { ViewCompany } from "../pages/superadmin/viewcompany";
@@ -18,6 +18,9 @@ import { Subscription } from "../pages/superadmin/subscrition";
 import { AddLeads } from "../pages/admin/addLeads";
 import { AddBranch } from "../pages/admin/addBranch";
 import { ViewsLeads } from "../pages/admin/viewLead";
+import { ViewBranch } from "../pages/admin/viewBranch";
+import { ViewOrder } from "../pages/admin/viewOrder";
+import { OrderList } from "../pages/admin/orderList";
 export const AdminRoutes = () => {
   return (
     <>
@@ -42,6 +45,9 @@ export const AdminRoutes = () => {
           <Route path="/admin/addLeads" element={<AddLeads/>}/>
           <Route path="/admin/addBranch" element={<AddBranch/>} />
           <Route path="/admin/viewLead/:id" element={<ViewsLeads/>}/>
+          <Route path="/admin/viewbranch" element={<ViewBranch/>}/>
+          <Route path="/admin/viewOrder" element={<ViewOrder/>}/>
+          <Route path="/admin/orders" element={<OrderList/>}/>
           <Route path='*' element={<h1>Page not found</h1>}/>
         </Routes> 
       </BrowserRouter>
