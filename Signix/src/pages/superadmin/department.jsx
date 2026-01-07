@@ -35,7 +35,7 @@ import {
 } from "../../components/ui/select";
 
 export default function MasterCategoryPage() {
-  /* -------------------- STATES -------------------- */
+
   const [globalFilter, setGlobalFilter] = useState("");
   const [departments, setDepartments] = useState([]);
   const [openPopoverId, setOpenPopoverId] = useState(null);

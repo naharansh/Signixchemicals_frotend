@@ -7,7 +7,7 @@ import { Input } from "../../components/ui/input";
 import { useEffect, useMemo, useState } from "react";
 
 export const ProductList = () => {
-      const data = [
+  const data = [
     {
       id: 1,
       category_id: 1,
@@ -59,30 +59,22 @@ export const ProductList = () => {
       created_at: "2026-01-06T10:50:00",
     },
   ];
-    const [filter,setFilter]=useState('')
-   
-    const filteredData = useMemo(() => {
-        const result= data.filter((product) =>
-    product.product_name
-      .toLowerCase()
-      .includes(filter.toLowerCase())
-  );
-  if(result.length === 0)
-  {
-    return (
+  const [filter, setFilter] = useState("");
+
+  const filteredData = useMemo(() => {
+    const result = data.filter((product) =>
+      product.product_name.toLowerCase().includes(filter.toLowerCase())
+    );
+    if (result.length === 0) {
+      return (
         <>
-            <div>
-                product not found
-            </div>
+          <div>product not found</div>
         </>
-    )
-  }
-  
-       
-  return result
-}, [filter, data]);
+      );
+    }
 
-
+    return result;
+  }, [filter, data]);
 
   return (
     <>
@@ -94,8 +86,8 @@ export const ProductList = () => {
               <Input
                 type="search"
                 placeholder="Search products..."
-                className="pl-10" 
-                onChange={(e)=>setFilter(e.target.value)}
+                className="pl-10"
+                onChange={(e) => setFilter(e.target.value)}
               />
             </div>
 
@@ -106,14 +98,11 @@ export const ProductList = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-5">
-        
-        
-        {
-            
-            (filteredData.length?filteredData:data).map((product, index) => (
-              <Card
-                key={index}
-                className="
+            {(filteredData.length ? filteredData : data).map(
+              (product, index) => (
+                <Card
+                  key={index}
+                  className="
           group
           rounded-none
           border border-none
@@ -124,39 +113,39 @@ export const ProductList = () => {
           my-3
           py-4
         "
-              >
-                <CardContent className="p-2 ">
-                  {/* HEADER */}
-                  <div className="flex justify-between items-start">
-                    <h2 className="text-base font-semibold leading-tight ">
-                      {product.product_name}
-                    </h2>
+                >
+                  <CardContent className="p-2 ">
+                    {/* HEADER */}
+                    <div className="flex justify-between items-start">
+                      <h2 className="text-base font-semibold leading-tight ">
+                        {product.product_name}
+                      </h2>
 
-                    <span className="text-sm font-bold text-gray-900">
-                      ${product.price}
-                    </span>
-                  </div>
+                      <span className="text-sm font-bold text-gray-900">
+                        ${product.price}
+                      </span>
+                    </div>
 
-                  {/* META */}
-                  <div className="flex items-center justify-between mt-4">
-                    <span className="text-xs text-muted-foreground">
-                      Stock: {product.stock}
-                    </span>
+                    {/* META */}
+                    <div className="flex items-center justify-between mt-4">
+                      <span className="text-xs text-muted-foreground">
+                        Stock: {product.stock}
+                      </span>
 
-                    <Badge
-                      className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                        product.status === "Active"
-                          ? "bg-green-100 text-green-700 border border-green-300"
-                          : "bg-red-100 text-red-700 border border-red-300"
-                      }`}
-                    >
-                      {product.status}
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-        }
+                      <Badge
+                        className={`px-2 py-0.5 text-xs font-medium rounded-full ${
+                          product.status === "Active"
+                            ? "bg-green-100 text-green-700 border border-green-300"
+                            : "bg-red-100 text-red-700 border border-red-300"
+                        }`}
+                      >
+                        {product.status}
+                      </Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              )
+            )}
           </div>
         </div>
       </Sidebar>
