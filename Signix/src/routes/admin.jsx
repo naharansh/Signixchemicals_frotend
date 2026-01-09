@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";  
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Page from "../pages/admin/admin";
 import { AddCompany } from "../pages/superadmin/addcompany";
 import { ViewCompany } from "../pages/superadmin/viewcompany";
@@ -26,6 +26,18 @@ import { AddProducts } from "../pages/admin/addProduct";
 import { AddOrder } from "../pages/admin/addOrder";
 import { Category } from "../pages/admin/category";
 import { ThirdParty } from "../pages/admin/thirdparty";
+import {
+  Cancelled,
+  Confirmed,
+  Delivered,
+  FailedToDelevierd,
+  OrderManagement,
+  OutForDeleviry,
+  Packageing,
+  Pending,
+  Returned,
+} from "../pages/admin/orderManagement";
+import { EmailTemplate } from "../pages/admin/emailTemplate";
 
 export const AdminRoutes = () => {
   return (
@@ -48,21 +60,43 @@ export const AdminRoutes = () => {
           <Route path="/admin/chart" element={<FrappeGantt />} />
           <Route path="/admin/upload" element={<Uploads />} />
           <Route path="/admin/subscription" element={<Subscription />} />
-          <Route path="/admin/addLeads" element={<AddLeads/>}/>
-          <Route path="/admin/addBranch" element={<AddBranch/>} />
-          <Route path="/admin/viewLead/:id" element={<ViewsLeads/>}/>
-          <Route path="/admin/viewbranch" element={<ViewBranch/>}/>
-          <Route path="/admin/viewOrder" element={<ViewOrder/>}/>
-          <Route path="/admin/orders" element={<OrderList/>}/>
-          <Route path="/admin/productList" element={<ProductList/>}/>
-          <Route path="/admin/addProduct" element={<AddProducts/>}/>
-          <Route path="/admin/addOrder" element={<AddOrder/>}/>
-          <Route path="/admin/Category" element={<Category/>}/>
-           {/* 3d party routes */}
-           <Route path="/admin/thirdParty" element={<ThirdParty/>}/>
+          <Route path="/admin/addLeads" element={<AddLeads />} />
+          <Route path="/admin/addBranch" element={<AddBranch />} />
+          <Route path="/admin/viewLead/:id" element={<ViewsLeads />} />
+          <Route path="/admin/viewbranch" element={<ViewBranch />} />
+          <Route path="/admin/viewOrder" element={<ViewOrder />} />
+          <Route path="/admin/orders" element={<OrderList />} />
+          <Route path="/admin/productList" element={<ProductList />} />
+          <Route path="/admin/addProduct" element={<AddProducts />} />
+          <Route path="/admin/addOrder" element={<AddOrder />} />
+          <Route path="/admin/Category" element={<Category />} />
+          <Route
+            path="/admin/Ordermanagmentlist"
+            element={<OrderManagement />}
+          />
+          <Route path="/admin/OrderList/pending" element={<Pending />} />
+          <Route path="/admin/OrderList/confirmed" element={<Confirmed />} />
+          <Route path="/admin/OrderList/packageing" element={<Packageing />} />
+          <Route
+            path="/admin/OrderList/outfordeleviery"
+            element={<OutForDeleviry />}
+          />
+          <Route path="/admin/OrderList/delivered" element={<Delivered />} />
+          <Route path="/admin/OrderList/returned" element={<Returned />} />
+          <Route
+            path="/admin/OrderList/failed"
+            element={<FailedToDelevierd />}
+          />
+          <Route path="/admin/OrderList/cancelled" element={<Cancelled />} />
+          <Route
+            path="/admin/createEmailTemplate"
+            element={<EmailTemplate />}
+          />
+          {/* 3d party routes */}
+          <Route path="/admin/thirdParty" element={<ThirdParty />} />
 
-          <Route path='*' element={<h1>Page not found</h1>}/>
-        </Routes> 
+          <Route path="*" element={<h1>Page not found</h1>} />
+        </Routes>
       </BrowserRouter>
     </>
   );
