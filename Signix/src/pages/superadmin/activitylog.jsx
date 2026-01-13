@@ -159,15 +159,15 @@ export default function ActivityLog() {
         <ul className="relative border-l border-muted pl-6">
           {filteredActivities.map((item) => (
             <li key={item.id} className="relative mb-6 flex flex-col gap-4 lg:flex-row">
-              {/* Time */}
+             
               <div className="w-20 pt-4 text-xs text-muted-foreground">
                 {item.time}
               </div>
 
-              {/* Card */}
+            
               <div className="flex-1 rounded-lg border bg-white p-4 shadow-sm hover:shadow-md transition">
                 <div className="flex items-start gap-4">
-                  {/* Avatar */}
+                
                   <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden shrink-0">
                     {item.avatar ? (
                       <img
