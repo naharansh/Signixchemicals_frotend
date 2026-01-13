@@ -1,20 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Page from "../pages/admin/admin";
-import { AddCompany } from "../pages/superadmin/addcompany";
-import { ViewCompany } from "../pages/superadmin/viewcompany";
-import CompanyList from "../pages/superadmin/companylist";
 import { AddEmployees } from "../pages/admin/addemployees";
 import { ViewEmployee } from "../pages/admin/viewemployees";
 import { ViewEmployees } from "../pages/admin/viewemployee";
 import MasterCategoryPage from "../pages/superadmin/department";
-import { HelpDesk } from "../pages/admin/helpdesk";
 import { Sections } from "../pages/admin/AddLead";
 import { ListEmployees } from "../pages/admin/listemployees";
 import { LeaveApply } from "../pages/admin/leave";
 import { Toggles } from "../pages/admin/attendencs";
 import FrappeGantt from "../pages/admin/testing";
 import { Uploads } from "../pages/admin/document";
-import { Subscription } from "../pages/superadmin/subscrition";
 import { AddLeads } from "../pages/admin/addLeads";
 import { AddBranch } from "../pages/admin/addBranch";
 import { ViewsLeads } from "../pages/admin/viewLead";
@@ -37,29 +32,24 @@ import {
   Pending,
   Returned,
 } from "../pages/admin/orderManagement";
-import { EmailTemplate } from "../pages/admin/emailTemplate";
+import { CreateTemplate, EmailTemplate } from "../pages/admin/emailTemplate";
 
 export const AdminRoutes = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/admin/dashboard" element={<Page />} />
-          <Route path="/admin/addCompany" element={<AddCompany />} />
-          <Route path="/admin/ViewCompany/:id" element={<ViewCompany />} />
-          <Route path="/admin/listcompanies" element={<CompanyList />} />
+          <Route path="/admin/dashboard" element={<Page />} />         
           <Route path="/admin/addEmployee" element={<AddEmployees />} />
           <Route path="/admin/EmployeeList" element={<ViewEmployee />} />
           <Route path="/admin/viewEmployee/:id" element={<ViewEmployees />} />
-          <Route path="/admin/department" element={<MasterCategoryPage />} />
-          <Route path="/admin/helpdesk" element={<HelpDesk />} />
+          <Route path="/admin/department" element={<MasterCategoryPage />} />      
           <Route path="/admin/lead" element={<Sections />} />
           <Route path="/admin/employeeslist" element={<ListEmployees />} />
           <Route path="/admin/leaveapply" element={<LeaveApply />} />
           <Route path="/admin/attendence" element={<Toggles />} />
           <Route path="/admin/chart" element={<FrappeGantt />} />
-          <Route path="/admin/upload" element={<Uploads />} />
-          <Route path="/admin/subscription" element={<Subscription />} />
+          <Route path=" " element={<Uploads />} />         
           <Route path="/admin/addLeads" element={<AddLeads />} />
           <Route path="/admin/addBranch" element={<AddBranch />} />
           <Route path="/admin/viewLead/:id" element={<ViewsLeads />} />
@@ -70,32 +60,28 @@ export const AdminRoutes = () => {
           <Route path="/admin/addProduct" element={<AddProducts />} />
           <Route path="/admin/addOrder" element={<AddOrder />} />
           <Route path="/admin/Category" element={<Category />} />
-          <Route
-            path="/admin/Ordermanagmentlist"
-            element={<OrderManagement />}
-          />
+          <Route path="/admin/Ordermanagmentlist"element={<OrderManagement />} />
           <Route path="/admin/OrderList/pending" element={<Pending />} />
           <Route path="/admin/OrderList/confirmed" element={<Confirmed />} />
           <Route path="/admin/OrderList/packageing" element={<Packageing />} />
-          <Route
-            path="/admin/OrderList/outfordeleviery"
-            element={<OutForDeleviry />}
-          />
+          <Route path="/admin/OrderList/outfordeleviery"element={<OutForDeleviry />}/>
           <Route path="/admin/OrderList/delivered" element={<Delivered />} />
           <Route path="/admin/OrderList/returned" element={<Returned />} />
-          <Route
-            path="/admin/OrderList/failed"
-            element={<FailedToDelevierd />}
-          />
+          <Route path="/admin/OrderList/failed" element={<FailedToDelevierd />}   />
           <Route path="/admin/OrderList/cancelled" element={<Cancelled />} />
-          <Route
-            path="/admin/createEmailTemplate"
-            element={<EmailTemplate />}
-          />
+         
           {/* 3d party routes */}
           <Route path="/admin/thirdParty" element={<ThirdParty />} />
-
-          <Route path="*" element={<h1>Page not found</h1>} />
+          {/* email template */}
+             <Route
+            path="/admin/EmailTemplate"
+            element={<EmailTemplate />}
+          />
+          <Route
+            path="/admin/createEmailTemplate"
+            element={<CreateTemplate/>}
+          />
+            {/* <Route path="*" element={<h1>Page not found</h1>} /> */}
         </Routes>
       </BrowserRouter>
     </>

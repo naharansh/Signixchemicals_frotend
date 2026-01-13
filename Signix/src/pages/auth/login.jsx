@@ -23,7 +23,7 @@ import secondimage from "../../assets/secondimage.svg";
 import logo from "../../assets/icons/logo.svg";
 import "../../styles/global.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export const Login = () => {
@@ -139,12 +139,12 @@ export const Login = () => {
                       </p>
                     )}
                   </div>
-                  <a
-                    href="#"
+                  <Link
+                    to='/forget_password'
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline my-3"
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
                 <Button type="submit" className="w-full btns">
                   Login

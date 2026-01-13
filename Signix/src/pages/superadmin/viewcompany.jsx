@@ -50,7 +50,7 @@ export const ViewCompany = () => {
 
   const [logoPreview, setLogoPreview] = useState("");
 
-  /* ---------------- FETCH DATA ---------------- */
+  
   useEffect(() => {
     axios
       .get(`http://localhost:8080/company/getEmployee/${id}`)
@@ -63,7 +63,7 @@ export const ViewCompany = () => {
       .catch(console.error);
   }, [id]);
 
-  /* ---------------- HANDLERS ---------------- */
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
@@ -109,12 +109,12 @@ export const ViewCompany = () => {
     }
   };
 
-  /* ---------------- UI ---------------- */
+  
   return (
     <Sidebar>
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-10 my-4  px-2 sm:px-0 items-start w-full">
-          {/* PROFILE CARD */}
+          
           <Card className="rounded-sm mx-5 sm:mx-4 lg:mx-5">
             <CardHeader>
               <CardTitle className="text-base text-center">
@@ -126,7 +126,7 @@ export const ViewCompany = () => {
               <div className="flex items-center gap-4 justify-center flex-col">
                 <img
                   src={logoPreview}
-                  alt="Company Logo"
+                  
                   className="h-16 w-16 rounded-full object-cover"
                 />
 
@@ -167,8 +167,8 @@ export const ViewCompany = () => {
             </CardContent>
           </Card>
 
-          {/* DETAILS CARD */}
-          <Card className="rounded-sm col-span-1 ms-[90px] lg:col-span-2 lg:ms-[-40px] me-2">
+          
+          <Card className="rounded-sm col-span-1  lg:col-span-2 lg:ms-[-40px]  me-2">
             <CardHeader>
               <CardTitle className="text-base">
                 <div className="flex justify-between">

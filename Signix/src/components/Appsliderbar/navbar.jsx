@@ -35,6 +35,7 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 export const Navbars = ({ items }) => {
   const { isMobile } = useSidebar();
@@ -97,6 +98,7 @@ export const Navbars = ({ items }) => {
   );
 };
 export const Navmain = ({ items }) => {
+  console.log(items)
   return (
     <>
       <SidebarGroup>
@@ -126,7 +128,9 @@ export const Navmain = ({ items }) => {
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton tooltip={item.title}>
                   {item.icon && <item.icon />}
-                  <span>{item.title}</span>
+                  <span>
+                    <Link to={item.url}>{item.title}</Link>
+                  </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}

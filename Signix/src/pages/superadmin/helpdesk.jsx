@@ -17,10 +17,10 @@ export const HelpDesk = () => {
     <>
       <Sidebar>
         <div className="w-full bg-gray-50 p-4">
-          <div className="grid grid-cols-12 gap-6">
-            {/* LEFT PANEL */}
-            <div className="col-span-7 bg-white rounded-xl border p-6 space-y-6">
-              {/* ROW 1 */}
+          <div className="grid grid-cols-12 gap-6 ">
+          
+            <div className="col-span-12 bg-white rounded-xl border p-6 space-y-6 lg:col-span-7">
+              
               <div className="flex gap-6 items-start">
                 <div className="w-40 shrink-0">
                   <h3 className="text-lg font-semibold text-gray-800">
@@ -29,7 +29,7 @@ export const HelpDesk = () => {
                   <p className="text-sm text-gray-500">Open Tickets</p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 flex-1">
+                <div className="grid grid-cols-1 gap-4 flex-1 lg:grid-cols-3">
                   <div className="rounded-lg border bg-gray-50 p-4 text-center">
                     <h4 className="text-xl font-semibold">1</h4>
                     <p className="text-sm text-gray-600">Tickets</p>
@@ -76,9 +76,7 @@ export const HelpDesk = () => {
                   </div>
                 </div>
               </div>
-
-              {/* ROW 2 */}
-              <div className="flex gap-6 items-start">
+              <div className="flex gap-6 items-start grid grid-cols-1 gap-4 flex-1 lg:grid-cols-1">
                 <div className="w-40 shrink-0">
                   <p className="text-sm font-medium text-gray-700">
                     Avg Open Hours
@@ -99,7 +97,7 @@ export const HelpDesk = () => {
               </div>
 
               {/* ROW 3 */}
-              <div className="flex gap-6 items-start">
+              <div className="flex gap-6 items-start grid grid-cols-1 gap-4 flex-1 lg:grid-cols-1">
                 <div className="w-40 shrink-0">
                   <p className="text-sm font-medium text-gray-700">
                     Failed Tickets
@@ -120,13 +118,13 @@ export const HelpDesk = () => {
               </div>
             </div>
 
-            {/* RIGHT PANEL */}
-            <div className="col-span-5 bg-white rounded-xl border p-6">
+         
+            <div className="col-span-12 bg-white rounded-xl border p-6 lg:col-span-5">
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
                 My Performance
               </h3>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                 <div className="rounded-lg border bg-gray-50 p-4 text-center">
                   <h4 className="text-xl font-semibold">75%</h4>
                   <p className="text-sm text-gray-600">Resolved</p>

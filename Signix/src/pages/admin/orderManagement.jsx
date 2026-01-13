@@ -36,7 +36,6 @@ import { Calendar } from "../../components/ui/calendar";
 import { useState, useCallback, useMemo } from "react";
 import { TableBody } from "../../components/ui/table";
 import { Badge } from "../../components/ui/badge";
-import { Input } from "../../components/ui/input";
 import {
   Empty,
   EmptyContent,
@@ -1294,10 +1293,10 @@ export const OutForDeleviry = () => {
                   <input
                     type="text"
                     placeholder="Search by Order ID"
-                    className="border border-gray-300 rounded-md px-3 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="border border-gray-300 rounded-md px-3 py-2 w-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <button className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                    {/* <FaSearch /> */}
+                   
                     <Search className="h-4 w-4" />
                     Search
                   </button>
@@ -1550,10 +1549,10 @@ export const Delivered = () => {
                   <input
                     type="text"
                     placeholder="Search by Order ID"
-                    className="border border-gray-300 rounded-md px-3 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="border border-gray-300 rounded-md px-3 py-2 w-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <button className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                    {/* <FaSearch /> */}
+                   
                     <Search className="h-4 w-4" />
                     Search
                   </button>
@@ -1775,10 +1774,10 @@ export const Returned = () => {
                   <input
                     type="text"
                     placeholder="Search by Order ID"
-                    className="border border-gray-300 rounded-md px-3 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="border border-gray-300 rounded-md px-3 py-2 w-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <button className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-                    {/* <FaSearch /> */}
+                    
                     <Search className="h-4 w-4" />
                     Search
                   </button>
@@ -2000,7 +1999,7 @@ export const FailedToDelevierd = () => {
                   <input
                     type="text"
                     placeholder="Search by Order ID"
-                    className="border border-gray-300 rounded-md px-3 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="border border-gray-300 rounded-md px-3 py-2 w-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <button className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                     {/* <FaSearch /> */}
@@ -2225,7 +2224,7 @@ export const Cancelled = () => {
                   <input
                     type="text"
                     placeholder="Search by Order ID"
-                    className="border border-gray-300 rounded-md px-3 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="border border-gray-300 rounded-md px-3 py-2 w-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                   <button className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
                     {/* <FaSearch /> */}

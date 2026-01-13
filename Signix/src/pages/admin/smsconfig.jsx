@@ -13,7 +13,7 @@ export const SMSCONFIG = () => {
   return (
     <>
       <div className="w-full  my-2">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
           <Card className="my-4 mx-3 rounded-none overflow-hidden px-2 py-2">
             <CardHeader className="px-2 pt-2 pb-1 bg-white">
               <div className="flex items-center justify-between">
@@ -139,7 +139,7 @@ export const SMSCONFIG = () => {
             </CardContent>
           </Card>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
           <Card className="my-4 mx-3 rounded-none overflow-hidden px-2 py-2">
             <CardHeader className="px-2 pt-2 pb-1 bg-white">
               <div className="flex items-center justify-between">
@@ -250,7 +250,7 @@ export const SMSCONFIG = () => {
             </CardContent>
           </Card>
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
           <Card className="my-4 mx-3 rounded-none overflow-hidden px-2 py-2">
             <CardHeader className="px-2 pt-2 pb-1 bg-white">
               <div className="flex items-center justify-between">
@@ -313,7 +313,7 @@ export const MailConfig = () => {
       <div className="w-full my-1">
         <Card className="rounded-none border border-none shadow-sm mx-5 ">
           <CardContent className="space-y-4">
-            {/* Header */}
+         
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <h3 className="text-base font-semibold flex items-center gap-2">
@@ -333,15 +333,15 @@ export const MailConfig = () => {
             </div>
 
             {open && (
-              <div className="rounded-none  p-4 space-y-3 animate-in fade-in slide-in-from-top-2">
-                <div className="space-y-1 flex justify-between">
+              <div className="rounded-none  py-4 space-y-3 animate-in fade-in slide-in-from-top-2">
+                <div className="space-y-1 flex justify-between flex-col lg:flex-row">
                   <Input
                     id="test-email"
                     type="email"
                     placeholder="example@domain.com"
-                    className="w-[60%] p-5"
+                    className="w-full py-3 my-3 lg:p-5  lg:my-0"
                   />
-                  <Button className="flex items-center gap-2 w-70 bg-blue-400 hover:bg-blue-800 p-5">
+                  <Button className="flex items-center gap-2 w-full lg:w-70 bg-blue-400 hover:bg-blue-800 p-5">
                     <SendIcon className="h-4 w-4" />
                     Send Test Mail
                   </Button>
@@ -352,7 +352,7 @@ export const MailConfig = () => {
             )}
           </CardContent>
         </Card>
-        <div className="grid grid-cols-2 gap-2 my-5 mx-5">
+        <div className="grid grid-cols-1 gap-2 my-5 mx-5 lg:grid-cols-2">
           <Card className="my-4 mx-3 rounded-none overflow-hidden px-2 py-2">
             <CardHeader className="px-2 pt-2 pb-1 bg-white">
               <div className="flex items-center justify-between">
@@ -372,7 +372,7 @@ export const MailConfig = () => {
               <form className="space-y-3">
                 <Label className="text-sm m-0">Smtp mail</Label>
 
-                <RadioGroup className="my-2 px-3 l-2">
+                <RadioGroup className="my-2 px-0 l-2 lg:px-3 ">
                   <div className="flex items-center gap-3">
                     <RadioGroupItem value="active" id="r1" />
                     <Label htmlFor="r1">Active</Label>
@@ -515,12 +515,13 @@ export const MailConfig = () => {
 export const Recapcha = () => {
   return (
     <>
+    <div className="w-full my-1">
       <Card className="mx-5 my-2 rounded-none  shadow-sm border border-none  p-0">
         <CardHeader className="py-2">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between ">
             <div>
               <div className="flex items-center gap-3">
-                <h1 className="text-md font-semibold">Google reCAPTCHA</h1>
+                <h1 className="text-md font-semibold me-5">Google reCAPTCHA</h1>
                 <Switch id="recaptcha-toggle" />
               </div>
             </div>
@@ -553,13 +554,13 @@ export const Recapcha = () => {
         <CardContent>
           <form className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Site Key */}
+              
               <div className="space-y-2">
                 <Label htmlFor="siteKey">Site Key</Label>
                 <Input id="siteKey" type="text" placeholder="Enter site key" />
               </div>
 
-              {/* Secret Key */}
+              
               <div className="space-y-2">
                 <Label htmlFor="secretKey">Secret Key</Label>
                 <Input
@@ -616,17 +617,18 @@ export const Recapcha = () => {
           </form>
         </CardContent>
       </Card>
+      </div>
     </>
   );
 };
 export const Maps = () => {
   return (
     <>
-      <Card className="mx-5 my-2 rounded-none  shadow-sm border border-none  p-0">
-        <CardContent>
+      <Card className="mx-5 my-2 rounded-none  shadow-none border border-none  p-0">
+        <CardContent className="border border-none">
           <form>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-5">
-              {/* Site Key */}
+              
               <div className="space-y-2">
                 <Label htmlFor="siteKey">Map api key (Client)</Label>
                 <Input
@@ -679,7 +681,7 @@ export const PushNotification = () => {
           </form>
         </CardContent>
       </Card>
-      <Card className="mx-5 my-2 rounded-none  shadow-sm border border-none  p-0 my-5">
+      <Card className="mx-5 my-2 rounded-none  shadow-sm border border-none  p-0 my-5 lg:my-0">
         <CardHeader>
             <div className="flex items-center gap-3">
             <h1 className="text-md font-semibold">
@@ -689,7 +691,7 @@ export const PushNotification = () => {
         </CardHeader>
         <CardContent>
           <form>
-            <div className="grid grid-cols-2 ">
+            <div className="grid grid-cols-1 lg:grid-cols-2 ">
               <div className="flex flex-col">
                 <div className="flex items-center space-x-2">
                   <Switch id="airplane-mode" />
@@ -697,7 +699,7 @@ export const PushNotification = () => {
                 </div>
                 <Textarea
                   placeholder="Type your message here."
-                  className="my-5 w-[90%]"
+                  className="my-5 w-full lg:w-[90%]"
                 />
               </div>
               <div className="flex flex-col">
@@ -715,7 +717,7 @@ export const PushNotification = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 ">
+            <div className="grid grid-cols-1 lg:grid-cols-2  ">
               <div className="flex flex-col">
                 <div className="flex items-center space-x-2">
                   <Switch id="airplane-mode" />
@@ -743,7 +745,7 @@ export const PushNotification = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 ">
+            <div className="grid grid-cols-1 lg:grid-cols-2  ">
               <div className="flex flex-col">
                 <div className="flex items-center space-x-2">
                   <Switch id="airplane-mode" />
@@ -769,7 +771,7 @@ export const PushNotification = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 ">
+            <div className="grid grid-cols-1 lg:grid-cols-2 ">
               <div className="flex flex-col">
                 <div className="flex items-center space-x-2">
                   <Switch id="airplane-mode" />
@@ -795,7 +797,7 @@ export const PushNotification = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 ">
+            <div className="grid grid-cols-1 lg:grid-cols-2  ">
               <div className="flex flex-col">
                 <div className="flex items-center space-x-2">
                   <Switch id="airplane-mode" />
@@ -823,7 +825,7 @@ export const PushNotification = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 ">
+            <div className="grid grid-cols-1 lg:grid-cols-2 ">
               <div className="flex flex-col">
                 <div className="flex items-center space-x-2">
                   <Switch id="airplane-mode" />

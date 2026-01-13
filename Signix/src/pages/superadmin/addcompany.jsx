@@ -19,7 +19,7 @@ import {
 } from "../../components/ui/select";
 import { Separator } from "../../components/ui/separator";
 
-export const AddCompany = () => {
+export const  AddCompany = () => {
   // TEXT DATA ONLY
   const [edit, setEdit] = useState({
     companyName: "",

@@ -1,22 +1,18 @@
 import { Sidebar } from "../../components/sidebar";
-import { Button } from "../../components/ui/button";
+
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+
 } from "../../components/ui/card";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
+
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "../../components/ui/tabs";
-import { OrderList } from "./orderList";
+
 import {
   MailConfig,
   Maps,
@@ -30,9 +26,9 @@ export const ThirdParty = () => {
     <>
       <Sidebar>
         <div className="w-full py-4">
-          <Card className="rounded-none border border-none shadow-sm">
-            <CardContent className="p-6 space-y-8">
-              {/* Header */}
+          <Card className="rounded-none border border-none shadow-none">
+            <CardContent className="p-6 space-y-8 border-none">
+             
               <div className="space-y-1">
                 <h1 className="text-xl font-semibold text-foreground">
                   Third-Party Integrations
@@ -64,7 +60,7 @@ export const ThirdParty = () => {
                 </TabsList>
 
                 {/* Tab Contents */}
-                <div className="mt-6 rounded-lg border bg-background p-4">
+                <div className="mt-6 rounded-sm border border-none shadow-sm  p-4">
                   <TabsContent value="smsconfig">
                     <SMSCONFIG />
                   </TabsContent>

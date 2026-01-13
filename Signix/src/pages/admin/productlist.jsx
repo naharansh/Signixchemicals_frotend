@@ -80,22 +80,22 @@ export const ProductList = () => {
     <>
       <Sidebar>
         <div className="w-full px-3">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 my-5 px-4 py-3 rounded-lg  bg-background">
-            <div className="relative w-full sm:w-1/3">
-              <SearchCheckIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                className="pl-10"
-                onChange={(e) => setFilter(e.target.value)}
-              />
-            </div>
-
-            <Button className="flex items-center gap-2 self-end sm:self-auto">
-              <PlusCircleIcon className="h-4 w-4" />
-              Add New Product
-            </Button>
-          </div>
+        
+          <div className="flex items-center justify-between gap-4 p-4 bg-white shadow-sm">
+  <input
+    type="text"
+    placeholder="Search products"
+    className="w-full max-w-sm px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    aria-label="Search products"
+  />
+  
+  <button
+    className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition"
+    aria-label="Add new product"
+  >
+    Add New Product
+  </button>
+</div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-5">
             {(filteredData.length ? filteredData : data).map(

@@ -13,33 +13,34 @@ import {
   FieldGroup,
   FieldLabel,
 } from "../../components/ui/field";
-import { InputOTP, InputOTPSlot, InputOTPGroup } from "../../components/ui/input-otp";
+import {
+  InputOTP,
+  InputOTPSlot,
+  InputOTPGroup,
+} from "../../components/ui/input-otp";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const GenerateOTP = () => {
   const [otp, setOtp] = useState(""); // single string
 
-  const OTPSubmit =async (e) => {
+  const OTPSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-   const res= await axios.post(
-  "http://localhost:8080/api/verifyOTP",
-  { otp },
-  {
-    headers: { "Content-Type": "application/json" },
-    withCredentials: true, // ✅ crucial to send cookies
-  }
-);
-if(res)
-{
-    alert("Otp is verified")
-}
-
-
+      const res = await axios.post(
+        "http://localhost:8080/api/verifyOTP",
+        { otp },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true, // ✅ crucial to send cookies
+        }
+      );
+      if (res) {
+        alert("Otp is verified");
+      }
     } catch (error) {
-        console.log(error.message)
+      console.log(error.message);
     }
   };
 
@@ -79,7 +80,61 @@ if(res)
                   <FieldGroup>
                     <Button type="submit">Verify</Button>
                     <FieldDescription className="text-center">
-                      Didn&apos;t receive the code?<Link to='/login'>Resend</Link>
+                      Didn&apos;t receive the code?
+                      <Link to="/login">Resend</Link>
+                    </FieldDescription>
+                  </FieldGroup>
+                </FieldGroup>
+              </form>
+            </CardContent>
+          </CardHeader>
+        </Card>
+      </div>
+    </div>
+  );
+};
+export const FactorOTP = () => {
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/newPassword");
+  };
+  return (
+    <div className="flex min-h-svh w-full items-center justify-center">
+      <div className="w-full max-w-xs">
+        <Card>
+          <CardHeader>
+            <CardTitle>Enter the Verification Code</CardTitle>
+            <CardDescription>
+              We sent the 6-digit code to your email
+            </CardDescription>
+            <CardContent className="!p-0">
+              <form onSubmit={handleSubmit}>
+                <FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="otp">Verification code</FieldLabel>
+
+                    <InputOTP id="otp" maxLength={6}>
+                      <InputOTPGroup className="gap-2.5 *:data-[slot=input-otp-slot]:rounded-md *:data-[slot=input-otp-slot]:border">
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+
+                    <FieldDescription>
+                      Enter the 6-digit code sent to your email.
+                    </FieldDescription>
+                  </Field>
+
+                  <FieldGroup>
+                    <Button type="submit">Verify</Button>
+                    <FieldDescription className="text-center">
+                      Didn&apos;t receive the code?
+                      <Link to="/login">Resend</Link>
                     </FieldDescription>
                   </FieldGroup>
                 </FieldGroup>

@@ -60,10 +60,10 @@ const data = {
   ],
   navClouds: [
     {
-      title: "Capture",
+      title: "Dasboard",
       icon: IconCamera,
       isActive: true,
-      url: "#",
+      url: "/admin/dashboard",
       items: [
         {
           title: "Active Proposals",
@@ -76,9 +76,9 @@ const data = {
       ],
     },
     {
-      title: "Proposal",
+      title: "All Companies",
       icon: IconFileDescription,
-      url: "#",
+      url: "/admin/listcompanies",
       items: [
         {
           title: "Active Proposals",
