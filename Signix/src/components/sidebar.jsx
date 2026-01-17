@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { AppSidebar } from "./Appsliderbar/slidebar";
 import {
   Breadcrumb,
@@ -18,10 +18,16 @@ import {
 } from "./ui/sidebar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { IconLogout, IconSettings, IconUser } from "@tabler/icons-react";
+import { useRole } from "../context/rolecontex";
 
 export const Sidebar = ({ children }) => {
     const location = useLocation();
     const pathnames = location.pathname.split("/").filter(Boolean);
+    console.log(pathnames[1])
+      //  const routeTo = "/" + pathnames.slice(0, index + 1).join("/");
+      //     const isLast = index === pathnames.length - 1;
+  const { role } = useRole();
+
      const user = {
     name: "shadcn",
   };
@@ -43,14 +49,15 @@ export const Sidebar = ({ children }) => {
             <Breadcrumb className="min-w-0">
               <BreadcrumbList className="flex items-center gap-2 truncate">
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                    <BreadcrumbPage className="truncate">
+                  <Link to={role==="admin"?'/admin/dashboard':'/superadmin/dasboard'}>Home</Link></BreadcrumbPage>
                 </BreadcrumbItem>
 
                 <BreadcrumbSeparator className="hidden md:block" />
 
                 <BreadcrumbItem className="truncate">
                   <BreadcrumbPage className="truncate">
-                    Dashboard
+                    {pathnames[1]}
                   </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
@@ -58,7 +65,9 @@ export const Sidebar = ({ children }) => {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <Navuser user={user} />
+           {
+              role === 'admin' ? <Navuser user={user} />:''
+           }
           </div>
         </header>
           <main className="my-3 mx-2">
@@ -110,7 +119,7 @@ export const Navuser = ({ user }) => {
         <DropdownMenuItem className="flex items-center gap-2">
           <IconSettings className="h-4 w-4" />
           {/*  */}
-          <NavLink to='/admin/ViewCompany/:id'>Branch</NavLink>
+          <NavLink to='/admin/addBranch'>Branch</NavLink>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

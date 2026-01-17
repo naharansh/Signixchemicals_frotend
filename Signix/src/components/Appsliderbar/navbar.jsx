@@ -22,25 +22,37 @@ import {
 import { useSidebar } from "../../components/ui/sidebar";
 
 import {
+  IconChartBar,
   IconCirclePlusFilled,
+  IconDashboard,
   IconDots,
   IconFolder,
+  IconHelp,
+  IconListDetails,
   IconMail,
   IconShare3,
   IconTrash,
+  IconUsers,
+  IconUsersGroup,
 } from "@tabler/icons-react";
 import { Button } from "../ui/button";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { CreditCard } from "lucide-react";
 
-export const Navbars = ({ items, role }) => {
+export const Navbars = ({ items, passrole }) => {
   const { isMobile } = useSidebar();
   
+
+  console.log(passrole);
+
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Documents</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item, key) => {
-          const actions = item.actions ?? []; // ✅ SAFE DEFAULT
+          const actions = item.actions; // ✅ SAFE DEFAULT
+          const [open, setOpen] = useState(false);
 
           return (
             <SidebarMenuItem key={key} className="group">
@@ -50,42 +62,39 @@ export const Navbars = ({ items, role }) => {
                   to={item.url}
                   className={({ isActive }) =>
                     `flex items-center gap-2 w-full
-               hover:bg-muted
-               ${isActive ? "bg-muted font-medium" : ""}`
+                 hover:bg-muted
+                 ${isActive ? "bg-muted font-medium" : ""}`
                   }
+                  onClick={() => {
+                    if (actions.length > 0) {
+                      setOpen((prev) => !prev); // toggle submenu
+                    }
+                  }}
                 >
                   {item.icon && <item.icon className="size-4" />}
                   <span>{item.title}</span>
+                  {actions.length > 0 && (
+                    <span className="ml-auto">
+                      {open ? "▾" : "▸"} {/* arrow indicator */}
+                    </span>
+                  )}
                 </Link>
               </SidebarMenuButton>
 
-              {/* ACTION DROPDOWN */}
-              {actions.length > 0 && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <SidebarMenuAction
-                      showOnHover
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                      }}
+              {/* COLLAPSIBLE SUBMENU */}
+              {open && actions.length > 0 && (
+                <div className="ml-6 mt-1 flex flex-col gap-1">
+                  {actions.map((action, index) => (
+                    <Link
+                      key={index}
+                      to={action.url}
+                      className="flex items-center gap-2 px-2 py-1 rounded hover:bg-muted text-sm"
                     >
-                      <IconDots className="size-4" />
-                    </SidebarMenuAction>
-                  </DropdownMenuTrigger>
-
-                  <DropdownMenuContent
-                    side={isMobile ? "bottom" : "right"}
-                    align={isMobile ? "end" : "start"}
-                    className="w-32"
-                  >
-                    {actions.map((action, index) => (
-                      <DropdownMenuItem key={index} asChild>
-                        <Link to={action.url}>{action.title}</Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                      {action.icon && <action.icon className="size-3" />}
+                      <span>{action.title}</span>
+                    </Link>
+                  ))}
+                </div>
               )}
             </SidebarMenuItem>
           );

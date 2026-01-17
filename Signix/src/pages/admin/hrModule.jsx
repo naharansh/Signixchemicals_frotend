@@ -55,6 +55,7 @@ import {
 import { useMemo, useState } from "react";
 
 import { Tooltip } from "../../components/ui/tooltip";
+import { Sidebar } from "../../components/sidebar";
 export const HrDashboard = () => {
   const testdata = {
     employees: [
@@ -189,29 +190,8 @@ export const HrDashboard = () => {
   }, [testdata]);
   return (
     <>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-            <div className="flex items-center gap-2 px-4">
-              <SidebarTrigger className="-ml-1" />
-              <Separator
-                orientation="vertical"
-                className="mr-2 data-[orientation=vertical]:h-4"
-              />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">Home</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>DashBoard</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-          </header>
+      <Sidebar>
+        
           <div
             className="
         grid gap-4 px-4 lg:px-6
@@ -549,8 +529,8 @@ export const HrDashboard = () => {
               </CardContent>
             </Card>
           </div>
-        </SidebarInset>
-      </SidebarProvider>
+       
+      </Sidebar>
     </>
   );
 };
@@ -750,9 +730,8 @@ export const SalesDashboard = () => {
 
   return (
     <>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
+      <Sidebar>
+       
           <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
             <div className="flex items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
@@ -1176,8 +1155,8 @@ export const SalesDashboard = () => {
               </CardContent>
             </Card>
           </div>
-        </SidebarInset>
-      </SidebarProvider>
+       
+      </Sidebar>
     </>
   );
 };
@@ -1286,29 +1265,9 @@ export const Distributor = () => {
 
   return (
     <>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-            <div className="flex items-center gap-2 px-4">
-              <SidebarTrigger className="-ml-1" />
-              <Separator
-                orientation="vertical"
-                className="mr-2 data-[orientation=vertical]:h-4"
-              />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">Home</BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>DashBoard</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-          </header>
+      <Sidebar>
+     
+          
           <div
             className="
         grid gap-4 px-4 lg:px-6
@@ -1522,8 +1481,8 @@ export const Distributor = () => {
               </CardContent>
             </Card>
           </div>
-        </SidebarInset>
-      </SidebarProvider>
+        
+      </Sidebar>
     </>
   );
 };

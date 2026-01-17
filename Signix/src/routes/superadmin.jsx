@@ -10,14 +10,19 @@ import { FactorOTP } from "../pages/auth/generateotp";
 import { ForgotPassword, NewPassword } from "../pages/auth/forgetPassword";
 import { Login } from "../pages/auth/login";
 import Page from "../pages/admin/admin";
+import { RoleProvider } from "../context/rolecontex";
 
 export const SuperAdmin = () => {
   return (
     <>
-      <BrowserRouter>
+     <RoleProvider
+      initialRole="superadmin">
+             {" "}
+             {/* 👈 provide role globally */}
+            <BrowserRouter>
         <Routes>
           <Route path="/superadmin/addCompany" element={<AddCompany />} />
-          <Route path="/superadmin/dasboard" element={<Page role="superadmin"/>}/>
+          <Route path="/superadmin/dasboard" element={<Page />}/>
       
           <Route path="/superadmin/listcompanies" element={<CompanyList />} />
           <Route path="/superadmin/helpdesk" element={<HelpDesk />} />
@@ -43,6 +48,7 @@ export const SuperAdmin = () => {
           />
         </Routes>
       </BrowserRouter>
+           </RoleProvider>
     </>
   );
 };

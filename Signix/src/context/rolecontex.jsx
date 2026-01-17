@@ -1,14 +1,22 @@
 // RoleContext.jsx
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const RoleContext = createContext(null);
 
-export const RoleProvider = ({ role, children }) => {
+export const RoleProvider = ({ initialRole = null, children }) => {
+  const [role, setRole] = useState(initialRole);
+
   return (
-    <RoleContext.Provider value={role}>
+    <RoleContext.Provider value={{ role, setRole }}>
       {children}
     </RoleContext.Provider>
   );
 };
 
-export const useRole = () => useContext(RoleContext);
+export const useRole = () => {
+  const context = useContext(RoleContext);
+  if (!context) {
+    throw new Error("useRole must be used within a RoleProvider");
+  }
+  return context;
+};

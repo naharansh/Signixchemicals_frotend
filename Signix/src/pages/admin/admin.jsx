@@ -48,7 +48,7 @@ import {
 } from "../../components/ui/dropdown-menu.jsx";
 import { NavLink } from "react-router-dom";
 
-export default function Page({role}) {
+export default function Page() {
   const invoices = [
     {
       invoice: "INV001",
@@ -93,11 +93,10 @@ export default function Page({role}) {
       paymentMethod: "Credit Card",
     },
   ];
-  // localStorage.setItem()
  
   return (
     <Sidebar>
-      <AppSidebar passrole={role} />
+      <AppSidebar/>
 
       <SidebarInset>
      
