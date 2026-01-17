@@ -44,6 +44,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "../../components/ui/empty";
+import { useNavigate } from "react-router-dom";
 export const OrderManagement = () => {
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
   const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
@@ -113,15 +114,16 @@ export const OrderManagement = () => {
   const [orderType, setOrderType] = useState("all");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const navigate=useNavigate()
   const stats = [
-    { label: "Packaged", count: 2, color: "yellow" },
-    { label: "Confirmed", count: 2, color: "blue" },
-    { label: "Packaging", count: 2, color: "amber" },
-    { label: "Out for Delivery", count: 2, color: "indigo" },
-    { label: "Delivered", count: 2, color: "green" },
-    { label: "Canceled", count: 2, color: "red" },
-    { label: "Returned", count: 2, color: "orange" },
-    { label: "Failed Delivery", count: 2, color: "rose" },
+    { label: "Packaged", count: 2, color: "yellow",url:'/admin/OrderList/pending' },
+    { label: "Confirmed", count: 2, color: "blue",url:'/admin/OrderList/confirmed'},
+    { label: "Packaging", count: 2, color: "amber",url:'/admin/OrderList/packageing' },
+    { label: "Out for Delivery", count: 2, color: "indigo",url:'/admin/OrderList/outfordeleviery' },
+    { label: "Delivered", count: 2, color: "green",url:'/admin/OrderList/delivered' },
+    { label: "Canceled", count: 2, color: "red",url:'/admin/OrderList/returned' },
+    { label: "Returned", count: 2, color: "orange",url:'/admin/OrderList/failed' },
+    { label: "Failed Delivery", count: 2, color: "rose" ,url:'/admin/OrderList/cancelled'},
   ];
 
   // Memoized value to check if any filter is active
@@ -299,7 +301,7 @@ export const OrderManagement = () => {
                       className="rounded-lg cursor-pointer transition-all
                          hover:shadow-none hover:-translate-y-0.5 
                           hover: border border-primary/10 shadow-none rounded-none"
-                    >
+                    onClick={()=>navigate(item.url)}>
                       <CardContent className="p-0 px-2 ">
                         <div className="flex items-center justify-between px-2">
                           <div className="flex items-center gap-3 ">

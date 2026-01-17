@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import {
   Card,
@@ -11,13 +11,26 @@ import { Field, FieldLabel } from "../../components/ui/field";
 import { Input } from "../../components/ui/input";
 import { Separator } from "../../components/ui/separator";
 
-export const ForgotPassword = () => {
+export const ForgotPassword = ({role}) => {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("next view");
-    navigate("/two_factor");
+    console.log(role)
+     if(role === 'admin')
+  {
+
+     navigate("/admin/two_factor");
+    
+    
+  }
+  else 
+  {
+    navigate("/superadmin/two_factor");
+    
   };
+   
+  };
+ 
   return (
     <>
       <div className="flex min-h-svh w-full items-center justify-center">
@@ -52,6 +65,8 @@ export const NewPassword = () => {
         e.preventDefault()
         alert("Password is updated")
         navigates('/login')
+        window.location.reload()
+        
     }
   return (
     <>

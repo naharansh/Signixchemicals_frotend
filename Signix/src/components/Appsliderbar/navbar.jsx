@@ -5,14 +5,9 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarMenuAction,
- 
   SidebarGroupContent,
 } from "../../components/ui/sidebar";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../../components/ui/avatar";
+import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,149 +30,108 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
-export const Navbars = ({ items }) => {
+export const Navbars = ({ items, role }) => {
   const { isMobile } = useSidebar();
-
+  
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Documents</SidebarGroupLabel>
-
       <SidebarMenu>
-        {items.map((item,key) => (
-          <SidebarMenuItem key={key}  >
-            <SidebarMenuButton asChild>
-              <a href={item.url} className="flex items-center gap-2">
-                <item.icon className="size-4" />
-                <span>{item.title}</span>
-              </a>
-            </SidebarMenuButton>
+        {items.map((item, key) => {
+          const actions = item.actions ?? []; // ✅ SAFE DEFAULT
 
-            {/* ACTION MENU */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuAction showOnHover>
-                  <IconDots className="size-4" />
-                </SidebarMenuAction>
-              </DropdownMenuTrigger>
+          return (
+            <SidebarMenuItem key={key} className="group">
+              {/* MAIN NAVIGATION */}
+              <SidebarMenuButton asChild>
+                <Link
+                  to={item.url}
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 w-full
+               hover:bg-muted
+               ${isActive ? "bg-muted font-medium" : ""}`
+                  }
+                >
+                  {item.icon && <item.icon className="size-4" />}
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
 
-              <DropdownMenuContent
-                side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
-                className="w-28"
-              >
-                <DropdownMenuItem>
-                  <IconFolder className="mr-2 size-4" />
-                  Open
-                </DropdownMenuItem>
+              {/* ACTION DROPDOWN */}
+              {actions.length > 0 && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <SidebarMenuAction
+                      showOnHover
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                    >
+                      <IconDots className="size-4" />
+                    </SidebarMenuAction>
+                  </DropdownMenuTrigger>
 
-                <DropdownMenuItem>
-                  <IconShare3 className="mr-2 size-4" />
-                  Share
-                </DropdownMenuItem>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem className="text-red-600">
-                  <IconTrash className="mr-2 size-4" />
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        ))}
-        <SidebarMenuItem>
-          <SidebarMenuButton className="text-sidebar-foreground/70">
-            <IconDots className="text-sidebar-foreground/70" />
-            <span>More</span>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
+                  <DropdownMenuContent
+                    side={isMobile ? "bottom" : "right"}
+                    align={isMobile ? "end" : "start"}
+                    className="w-32"
+                  >
+                    {actions.map((action, index) => (
+                      <DropdownMenuItem key={index} asChild>
+                        <Link to={action.url}>{action.title}</Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+            </SidebarMenuItem>
+          );
+        })}
       </SidebarMenu>
     </SidebarGroup>
   );
 };
-export const Navmain = ({ items }) => {
-  console.log(items)
+
+export const Navmain = ({ items = [] }) => {
   return (
-    <>
-      <SidebarGroup>
-        <SidebarGroupContent className="flex flex-col gap-2">
-          <SidebarMenu className="flex items-center gap-2">
-            <SidebarMenuItem className="flex items-center gap-2">
-              <SidebarMenuButton
-                tooltip="Quick Create"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
-              >
-                <IconCirclePlusFilled />
-                <span>Quick Create</span>
+    <SidebarGroup>
+      <SidebarGroupContent className="flex flex-col gap-2">
+        {/* QUICK CREATE */}
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton className="bg-primary text-primary-foreground">
+              <IconCirclePlusFilled />
+              <span>Quick Create</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+
+        {/* MAIN NAV */}
+        <SidebarMenu>
+          {items.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild>
+                <NavLink
+                  to={item.url}
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 w-full ${
+                      isActive
+                        ? "bg-muted text-primary font-medium"
+                        : "text-muted-foreground"
+                    }`
+                  }
+                >
+                  {item.icon && <item.icon className="size-4" />}
+                  <span>{item.title}</span>
+                </NavLink>
               </SidebarMenuButton>
-              <Button
-                size="icon"
-                className="size-8 group-data-[collapsible=icon]:opacity-0"
-                variant="outline"
-              >
-                {" "}
-                <IconMail />
-                <span className="sr-only">Inbox</span>
-              </Button>
             </SidebarMenuItem>
-          </SidebarMenu>
-          <SidebarMenu>
-            {items.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton tooltip={item.title}>
-                  {item.icon && <item.icon />}
-                  <span>
-                    <Link to={item.url}>{item.title}</Link>
-                  </span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </SidebarGroup>
-    </>
-  );
-};
-export const Navuser = ({ user }) => {
-  return (
-    <>
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton
-                size="lg"
-                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-              >
-                <Avatar className="h-8 w-8 rounded-lg grayscale">
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-                </Avatar>
-
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="text-muted-foreground truncate text-xs">
-                    {user.email}
-                  </span>
-                </div>
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent align="end">
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Account</DropdownMenuSubTrigger>
-
-                <DropdownMenuSubContent>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuItem>Logout</DropdownMenuItem>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </SidebarMenuItem>
-      </SidebarMenu>
-    </>
+          ))}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
   );
 };

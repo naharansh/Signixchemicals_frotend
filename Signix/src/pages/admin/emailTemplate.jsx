@@ -23,6 +23,7 @@ import {
 } from "../../components/ui/select";
 import { Textarea } from "../../components/ui/textarea";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const EmailTemplate = () => {
   const mails = [
@@ -72,7 +73,9 @@ export const EmailTemplate = () => {
           </div>
 
           <Button className="h-11 px-6 text-sm font-semibold ">
+            <Link to="/admin/createEmailTemplate">
             + Add New Mail
+            </Link>
           </Button>
         </div>
 

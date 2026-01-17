@@ -23,6 +23,12 @@ import secondimage from "../../assets/secondimage.svg";
 import logo from "../../assets/icons/logo.svg";
 import "../../styles/global.css";
 import axios from "axios";
+import google from '../../assets/icons/google-color.svg'
+import facebook from '../../assets/icons/facebook-1.svg'
+import linkedin from '../../assets/icons/linkedin.svg'
+import  X from '../../assets/icons/twitterx--v1.png'
+import  apple from '../../assets/icons/apple-color.svg'
+import  microsoft from '../../assets/icons/microsoft.svg'
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -32,9 +38,10 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const usenav=useNavigate()
+const usenav=useNavigate()
+const role='superadmin'
   const onSubmit = async (data) => {
- 
+
 
   try {
     const res = await axios.post(
@@ -74,6 +81,19 @@ export const Login = () => {
     }
   }
 };
+  const changegingFunction=()=>{
+    if(role === 'admin')
+    {
+      console.log(role)
+        usenav('/admin/forget_password')
+        window.location.reload();
+    }
+    else
+    {
+      usenav('/superadmin/forget_password')
+      
+    }
+  }
 
   return (
     <>
@@ -139,12 +159,13 @@ export const Login = () => {
                       </p>
                     )}
                   </div>
-                  <Link
-                    to='/forget_password'
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline my-3"
+                  <button
+                   type="button"
+                    onClick={changegingFunction}
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline my-3 cursor-pointer"
                   >
                     Forgot your password?
-                  </Link>
+                  </button>
                 </div>
                 <Button type="submit" className="w-full btns">
                   Login
@@ -165,7 +186,7 @@ export const Login = () => {
                 {/* Google */}
                 <button className="baseBtn bg-[#ffffff]">
                   <img
-                    src="https://www.svgrepo.com/show/475656/google-color.svg"
+                    src={google}
                     alt="Google"
                     className="w-5 h-5"
                   />
@@ -174,7 +195,7 @@ export const Login = () => {
                 {/* Facebook */}
                 <button className="baseBtn bg-[#1877F2]">
                   <img
-                    src="https://www.svgrepo.com/show/452196/facebook-1.svg"
+                    src={facebook}
                     alt="Facebook"
                     className="w-5 h-5"
                   />
@@ -183,7 +204,7 @@ export const Login = () => {
                 {/* LinkedIn */}
                 <button className="baseBtn bg-[#0A66C2]">
                   <img
-                    src="https://www.svgrepo.com/show/349436/linkedin.svg"
+                    src={linkedin}
                     alt="LinkedIn"
                     className="w-5 h-5"
                   />
@@ -192,7 +213,7 @@ export const Login = () => {
                 {/* X (Twitter) */}
                 <button className="baseBtn bg-black">
                   <img
-                    src="https://img.icons8.com/ios/100/twitterx--v1.png"
+                    src={X}
                     alt="X"
                     className="w-5 h-5 invert"
                   />
@@ -201,7 +222,7 @@ export const Login = () => {
                 {/* Apple */}
                 <button className="baseBtn bg-black">
                   <img
-                    src="https://www.svgrepo.com/show/475633/apple-color.svg"
+                    src={apple}
                     alt="Apple"
                     className="w-5 h-5 invert"
                   />
@@ -210,7 +231,7 @@ export const Login = () => {
                 {/* Microsoft */}
                 <button className="baseBtn bg-[#F3F3F3] border">
                   <img
-                    src="https://www.svgrepo.com/show/448239/microsoft.svg"
+                    src={microsoft}
                     alt="Microsoft"
                     className="w-5 h-5"
                   />

@@ -34,10 +34,12 @@ import {
 } from "../../components/ui/dialog";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Sections = () => {
+  const navigate=useNavigate()
   const [toogle, settoggle] = useState(true);
-
+  const id=1;
   const invoices = [
     {
       invoice: "INV-1001",
@@ -93,7 +95,9 @@ export const Sections = () => {
                     <h2 className="text-sm font-semibold text-gray-700">
                       {title}
                     </h2>
+                    <Link to="/admin/addLeads">
                     <Plus className="h-4 w-4" />
+                    </Link>
                   </div>
 
                   <div className="flex items-center gap-2 mb-4">
@@ -103,7 +107,7 @@ export const Sections = () => {
 
                   {title === "New" && (
                     <>
-                      <Card className="mb-4 cursor-pointer">
+                      <Card className="mb-4 cursor-pointer" onClick={()=>navigate(`/admin/viewLead/${title.id}`)}>
                         <CardHeader className="pb-2">
                           <CardTitle className="text-sm">
                             Phone Pay Activation
@@ -127,7 +131,7 @@ export const Sections = () => {
                           </div>
                         </CardFooter>
                       </Card>
-                      <Card className="mb-4 cursor-pointer">
+                      <Card className="mb-4 cursor-pointer"  onClick={()=>navigate(`/admin/viewLead/${title.id}`)}>
                         <CardHeader className="pb-2">
                           <CardTitle className="text-sm">
                             Phone Pay Activation
@@ -160,7 +164,7 @@ export const Sections = () => {
         </div>
       )}
 
-      {/* ================= TABLE VIEW ================= */}
+    
       {!toogle && (
         <div className="px-6 py-4 space-y-4">
           <div>

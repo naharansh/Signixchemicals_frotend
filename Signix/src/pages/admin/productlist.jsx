@@ -5,6 +5,7 @@ import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardDescription } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const ProductList = () => {
   const data = [
@@ -93,7 +94,8 @@ export const ProductList = () => {
     className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition"
     aria-label="Add new product"
   >
-    Add New Product
+    <Link to='/admin/addProduct'>Add New Product</Link>
+    
   </button>
 </div>
 

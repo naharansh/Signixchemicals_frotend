@@ -1,6 +1,4 @@
 import { Sidebar } from "../../components/sidebar";
-import { Button } from "../../components/ui/button";
-import { Card, CardContent } from "../../components/ui/card";
 import {
   Pagination,
   PaginationContent,
@@ -10,19 +8,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../../components/ui/pagination";
-
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "../../components/ui/select";
 import {  useState } from "react";
-
 const activitiesData = [
   {
     id: 1,
@@ -68,7 +54,6 @@ const activitiesData = [
     avatar: null,
   },
 ];
-
 export default function ActivityLog() {
   const [activityType, setActivityType] = useState("all");
   const [dateRange, setDateRange] = useState("all");
@@ -178,7 +163,7 @@ export default function ActivityLog() {
                     ) : null}
                   </div>
 
-                  {/* Content */}
+                 
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-sm font-semibold">{item.user}</span>
@@ -193,7 +178,7 @@ export default function ActivityLog() {
                   </div>
                 </div>
 
-                {/* Comment */}
+               
                 {item.comment && (
                   <div className="mt-3 bg-muted/40 p-3 rounded-md">
                     <blockquote className="border-l-2 pl-3 italic text-sm text-muted-foreground">

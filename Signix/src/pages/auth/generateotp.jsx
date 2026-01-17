@@ -93,11 +93,19 @@ export const GenerateOTP = () => {
     </div>
   );
 };
-export const FactorOTP = () => {
+export const FactorOTP = ({role}) => {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate("/newPassword");
+    if(role === 'admin')
+    {
+        navigate('/admin/newPassword')
+        e.preventDefault()
+    }
+    else
+    {
+       navigate('/superadmin/newPassword')
+        e.preventDefault()
+    }
   };
   return (
     <div className="flex min-h-svh w-full items-center justify-center">

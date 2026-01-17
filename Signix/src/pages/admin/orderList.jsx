@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 import { ChevronLeft, ChevronRight, EyeIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const OrderList = () => {
   /* -------------------- STATE -------------------- */
@@ -255,7 +256,8 @@ export const OrderList = () => {
     transition
   "
 >
-  <EyeIcon className="h-4 w-4 transition-transform hover:scale-110" />
+  <Link to='/admin/viewOrder'><EyeIcon className="h-4 w-4 transition-transform hover:scale-110" /></Link>
+
 </Button>
 
         ),
@@ -287,13 +289,16 @@ export const OrderList = () => {
       <Card className="rounded-none border border-none  shadow-none  px-1">
         <CardContent className="py-4">
           {/* SEARCH */}
-          <input
+          <div className="flex justify-between">
+            <input
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
             placeholder="Search orders..."
             className="mb-4 h-9 w-64 rounded border px-3 text-sm"
           />
-
+          <Button>
+           <Link to='/admin/addOrder'> Add Order</Link></Button>
+          </div>
           {/* TABLE */}
           <Table className="min-w-[1000px]">
             <TableHeader>

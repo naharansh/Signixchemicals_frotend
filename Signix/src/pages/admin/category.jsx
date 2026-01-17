@@ -144,7 +144,7 @@ export const Category = () => {
                     <Input
                       id="username-1"
                       name="username"
-                      defaultValue="@peduarte"
+                      
                     />
                   </div>
                 </div>
