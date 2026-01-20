@@ -11,6 +11,7 @@ import { ForgotPassword, NewPassword } from "../pages/auth/forgetPassword";
 import { Login } from "../pages/auth/login";
 import Page from "../pages/admin/admin";
 import { RoleProvider } from "../context/rolecontex";
+// import PhoneInput from "../pages/admin/tests";
 
 export const SuperAdmin = () => {
   return (
@@ -18,12 +19,12 @@ export const SuperAdmin = () => {
      <RoleProvider
       initialRole="superadmin">
              {" "}
-             {/* 👈 provide role globally */}
+            
             <BrowserRouter>
         <Routes>
           <Route path="/superadmin/addCompany" element={<AddCompany />} />
-          <Route path="/superadmin/dasboard" element={<Page />}/>
-      
+          <Route path="/superadmin/dashboard" element={<Page />}/>
+         
           <Route path="/superadmin/listcompanies" element={<CompanyList />} />
           <Route path="/superadmin/helpdesk" element={<HelpDesk />} />
           <Route path="/superadmin/subscription" element={<Subscription />} />

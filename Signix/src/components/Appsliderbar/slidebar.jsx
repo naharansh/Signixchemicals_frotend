@@ -51,7 +51,7 @@ export const AppSidebar = () => {
     if (role === "superadmin") {
       return {
         navMain: [
-          { title: "Dashboard", url: "/superadmin/dasboard", icon: IconDashboard, actions: [] },
+          { title: "Dashboard", url: "/superadmin/dashboard", icon: IconDashboard, actions: [] },
           {
             title: "Company Details",
             url: "#",
@@ -118,7 +118,7 @@ export const AppSidebar = () => {
   /* ================= COMPONENT ================= */
   return (
     <Sidebar collapsible="offcanvas">
-      {/* ================= HEADER ================= */}
+    
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
